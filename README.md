@@ -68,21 +68,25 @@
 
 ## ■スケジュール
 
-企画~技術調査: 5/10〆切
+企画~技術調査: 5/24〆切
 
-README~ER図作成 5/14〆切
+README~ER図作成 5/30〆切
 
-メイン機能実装5/15~6/15〆切
+メイン機能実装6/1~6/25〆切
 
-β版をRUNTEQ内リリース (MVP) : 6/20
+β版をRUNTEQ内リリース (MVP) : 6/30
 
-本番リリース　6月末
+本番リリース　7月中旬
 
 ## ■技術選定
 
 - Rails6
-- next.js
+- React18
 - postgresql
-- typescript
+- javascript
 - TailWindCss
-- vercel
+- heroku
+- 
+- API
+- MediaRecorder API
+- spotify api
