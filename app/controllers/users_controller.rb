@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :require_login, only: %i[create new] 
   def new
   @user = User.new
   end
@@ -7,10 +8,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      auto_login(@user)
-      redirect_to :new
+      redirect_to login_path
+      flash[:notice] = 'ユーザーの作成に成功しました'
     else
-      render :new
+      flash.now[:alert] = 'ユーザーの作成に失敗しました'
+      render :new, status: 422
     end
   end
 
