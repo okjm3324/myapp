@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  song: one
+  start: 1
+  end: 1
+  section: 1
+  bpm: 1
+  instrument: 1
+
+two:
+  user: two
+  song: two
+  start: 1
+  end: 1
+  section: 1
+  bpm: 1
+  instrument: 1
