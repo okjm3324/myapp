@@ -1,0 +1,44 @@
+
+    <div id='track-box' class="flex h-60 w-10/12 bg-sky-400 bg-black m-auto rounded-lg mt-9" >
+    <div class='flex-cot'>
+      <div class="flex w-auto">
+        <div class="flex flex-col ml-9 mr-90">
+          <div id='artist-box' class='mt-9 font-semibold'>アーティスト</div>
+          <div id='title-box' class='mt-9 font-semibold'>タイトル</div>
+        </div>
+
+          <div id='tempo-box' class='flex bg-sky-100 flex-col ml-auto'>
+            <div class="text-7xl">200</div>
+            <div class="bg-black h-1 w-full"></div>
+            <div class="text-7xl">200</div>
+          </div>
+
+      </div>
+
+      <div id='tag-box' class='flex'>
+        <div class='flex'>
+          <div class="ml-9 border-double font-semibold">gu</div>
+          <div class="ml-9 border-double font-semibold">サビ</div>
+        </div>
+        <div class='flex ml-52'>
+          <div class="ml-9 h-9 w-24 border-double font-semibold">削除</div>
+          <div class="ml-9 border-double font-semibold" >編集</div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+  const track_box =  document.getElementById("track-box")
+
+  track_box.addEventListener('click', ()=>{
+    console.log('clicked')
+
+  })
+});
+</script>
+ 
+   

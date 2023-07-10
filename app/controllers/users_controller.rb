@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'ユーザーの作成に成功しました'
     else
       flash.now[:alert] = 'ユーザーの作成に失敗しました'
-      render :new, 
+      render :new
     end
   end
 

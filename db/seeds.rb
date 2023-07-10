@@ -5,3 +5,5 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+track = Track.create(attribute: 'value')
+parent_model.child_models.create(attribute: 'value')
