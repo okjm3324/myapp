@@ -18,7 +18,6 @@ class UserSessionsController < ApplicationController
 
   def destroy
     logout
-    
     redirect_to(login_path, notice: 'ログアウトしました')
   end
 end
