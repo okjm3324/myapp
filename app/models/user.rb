@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
   authenticates_with_sorcery!
+  has_many :tracks, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true, if: -> { new_record? || changes[:crypted_password] }
   validates :email, presence: true, uniqueness: true, if: -> { new_record? || changes[:crypted_password] }

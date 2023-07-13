@@ -241,6 +241,7 @@ PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
+  bcrypt
   bootsnap
   capybara
   cssbundling-rails

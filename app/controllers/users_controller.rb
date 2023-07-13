@@ -4,6 +4,12 @@ class UsersController < ApplicationController
   @user = User.new
   end
 
+  def show
+    @user = User.includes(tracks: {song: :album}).find_by(id: params[:id])
+    @tracks = @user.tracks
+
+  end
+
   def create
     @user = User.new(user_params)
 

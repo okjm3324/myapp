@@ -88,13 +88,13 @@
   <div
     class="bg-neutral-50 px-6 py-20 text-center text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200">
     <h1 class="mb-6 text-5xl font-bold">Profile画像</h1>
-    <h3 class="mb-8 text-3xl font-bold round-">名前</h3>
+    <h3 class="mb-8 text-3xl font-bold round-"><%= @user.name%></h3>
   </div>
 </header>
 
   <div id="track-container" class='m-auto'>
   
-  <%=  render  'shared/track' %>
+  <%=  render  @tracks %>
 </div>
 
 </body>
