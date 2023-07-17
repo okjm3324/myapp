@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   get    'login',  to: 'user_sessions#new'
   post   'login',  to: 'user_sessions#create'
-  delete 'logout', to: 'user_sessions#destroy'
+  delete 'logout', to: 'user_sessions#destroy', as: :logout
   resources :tracks
   # Defines the root path route ("/")
   # root "articles#index"

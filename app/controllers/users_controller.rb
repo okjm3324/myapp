@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: %i[create new edit update] 
+  skip_before_action :require_login, only: %i[create new] 
+  def index
+
+  end
+
   def new
   @user = User.new
   end
@@ -32,7 +36,7 @@ class UsersController < ApplicationController
       redirect_to @user, notice: "ユーザー情報を更新しました。"
     else
       flash.now[:alert] = 'ユーザー情報を更新に失敗しました。'
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
