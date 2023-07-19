@@ -75,3 +75,5 @@ group :test do
 end
 
 gem 'sorcery'
+gem 'mini_magick'
+gem 'carrierwave'
