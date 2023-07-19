@@ -1,13 +1,2 @@
-<%= form_with model: @user do |f| %>
- <%= render 'shared/error_messages' %>
-<%= f.label :email %>
-<%= f.text_field :email %>
-<%= f.label :name %>
-<%= f.text_field :name %>
-<%= f.label :password %>
-<%= f.password_field :password %>
-<%= f.label :password_confirmation %>
-<%= f.password_field :password_confirmation %>
-<%= f.select :instrument, User.instruments.keys %>
-<%= f.submit "保存"%>
-<% end %>
+<h1>edit</h1>
+<%=render "form"%>

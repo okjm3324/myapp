@@ -100,9 +100,9 @@
 
   <!-- Hero section with heading, subheading and button -->
   <div
-    class="bg-neutral-50 px-6 py-20 text-center text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200">
-    <h1 class="mb-6 text-5xl font-bold">Profile画像</h1>
-    <h3 class="mb-8 text-3xl font-bold round-"><%= @user.name%></h3>
+    class="bg-neutral-50 px-6 py-20 text-center text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200 ">
+    <div class="w-3/12 h-3/12 m-auto" ><%= @user.avatar.attached? ? (image_tag @user.avatar, class:"rounded-full") : (image_tag "blank-profile", class:"rounded-full") %></div>
+    <h3 class="mb-8 text-3xl font-bold mt-10"><%= @user.name%></h3>
   </div>
 </header>
 
