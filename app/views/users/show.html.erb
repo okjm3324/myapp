@@ -109,6 +109,8 @@
   <div id="track-container" class='m-auto'>
   
   <%=  render  @tracks %>
-</div>
-
+  </div>
+  <div class="fixed right-20 bottom-20 cursor-pointer z-50">
+    <%= link_to image_tag('create-96'), new_user_track_path(current_user) %>
+  </div>
 </body>
