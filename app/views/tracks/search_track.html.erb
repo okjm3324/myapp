@@ -1,0 +1,13 @@
+<h1>検索結果</h1>
+<div>
+  <% if @tracks.present? %>
+     <%image = @album.images[1]%>
+     <%= image_tag(image["url"])%>
+
+    <% @tracks.each do |track| %>
+      <div class='w-auto h-4 bg-gray-300'>
+        <h3><%= link_to track.name, tracks_new_path(track_id: track.id)  %></h3>
+      </div>
+    <%end%>
+  <%end%>
+</div>

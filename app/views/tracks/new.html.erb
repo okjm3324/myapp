@@ -1,0 +1,42 @@
+<h1>トラック</h1>
+
+<%= form_with model: @user  do |f|%>
+<div class="flex flex-col">
+  <%= f.label :title  %>
+  <%= f.text_field :start, class:'border-2 w-96', value:@song.name %>
+
+  <%= f.label :original_bpm  %>
+  <%= f.text_field :original_bpm, class:'border-2 w-96', value:@song.audio_features.tempo %>
+
+  <%= f.label :duration  %>
+  <%= f.text_field :original_bpm, class:'border-2 w-96', value:@song.audio_features.duration_ms %>
+
+
+
+  <%= f.label :start  %>
+  <%= f.text_field :start, class:'border-2 w-96', value:0 %>
+
+
+
+<%= f.label :end %>
+<%= f.text_field :end, class:'border-2 w-96', value:0 %>
+
+<%= f.label :section %>
+<%= f.select :section, [["intro", 0], ["verse", 1], ["bridge", 2], ["chorus", 3], ["solo", 4],["ending", 5]], { include_blank: "選択してください" }, { class: "border-2 w-96" } %>
+
+<%= f.label :bpm %>
+<%= f.text_field :bpm, class:'border-2 w-96' %>
+
+<%= f.label :instrument %>
+<%= f.select :instrument, [["ギター", 0], ["ベース", 1], ["ドラム", 2], ["キーボード", 3], ["サックス", 4]], { include_blank: "選択してください" }, { class: "border-2 w-96" } %>
+
+
+<%= f.submit 'submit'%>
+
+</div>
+
+<% end %>
+
+<img src="<%= @song.album.images.first["url"] %>", class="w-auto h-20">
+<h3 class="text-light"><%= @song.artists[0].name %></h3>
+<iframe class="iframe-song" src="<%= @song.preview_url %>">
