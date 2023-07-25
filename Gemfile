@@ -77,3 +77,5 @@ end
 gem 'sorcery'
 gem 'mini_magick'
 gem 'carrierwave'
+gem 'rspotify'
+gem 'dotenv-rails'

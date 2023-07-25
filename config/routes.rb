@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
+  get 'albums/index'
+  get 'albums/search'
 
-  get 'track/index'
-  get 'track/show'
-  get 'track/create'
-  get 'track/update'
-  get 'track/destroy'
+  get 'tracks/index'
+  get 'tracks/new' ,to: 'tracks#new'
+  get 'tracks/show'
+  get 'tracks/create'
+  get 'tracks/update'
+  get 'tracks/destroy'
 
 
   root "top#top"
@@ -12,7 +15,15 @@ Rails.application.routes.draw do
 
   
   resources :users do
-    resources :tracks
+    resources :tracks do
+      collection do
+        get 'search_artist'
+        get 'search_album'
+        get 'search_track'
+      end
+    end
+
+    get '/users/:user_id/tracks/search', to: 'tracks#search_artist', as: :search
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   get    'login',  to: 'user_sessions#new'
