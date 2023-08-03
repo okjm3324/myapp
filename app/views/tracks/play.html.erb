@@ -1,0 +1,15 @@
+<!-- app/views/songs/play.html.erb -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spotify Web Playback SDK Quick Start</title>
+</head>
+<body>
+  <h1>Spotify Web Playback SDK Quick Start</h1>
+  <button id="togglePlay">Toggle Play</button>
+  <%= include_gon %>
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+   <%= javascript_include_tag 'play.js' %>
+</body>
+</html>

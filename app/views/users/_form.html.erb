@@ -4,9 +4,9 @@
   
   
   <%= f.label :email %>
-  <%= f.text_field :email %>
+  <%= f.text_field :email, value:@spotify_user_info['email'] %>
   <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, value:@spotify_user_info['name'] %>
   <%= f.label :password %>
   <%= f.password_field :password %>
   <%= f.label :password_confirmation %>
@@ -15,7 +15,7 @@
   
   <div class="field">
     <%= f.label :avatar %>
-    <%= f.file_field :avatar, id: 'user_avatar' %>
+    <%= f.file_field :avatar, id: 'user_avatar', value: @spotify_user_info['images'][0]['url'] %>
   </div>
   <div id="avatar-preview-container"></div>
   
