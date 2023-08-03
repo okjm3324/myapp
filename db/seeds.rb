@@ -27,7 +27,9 @@ genres = Album.genres.keys
     password_confirmation: 'password',
     name: "テスト太郎#{n + 1}",
     instrument: User.instruments.keys.sample,
-    role: User.roles.keys.sample
+    role: User.roles.keys.sample,
+    access_token: "アクセストークンです",
+    refresh_access_token: "リフレッシュトークンです"
   )
 end
 

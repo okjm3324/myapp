@@ -43,6 +43,11 @@ class TracksController < ApplicationController
     end
   end
 
+  def play
+    gon.access_token = session[:access_token]
+    gon.track_id = "56v8WEnGzLByGsDAXDiv4d"
+  end
+
   
 
   private
