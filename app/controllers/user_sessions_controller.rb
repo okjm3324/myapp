@@ -20,6 +20,7 @@ class UserSessionsController < ApplicationController
   end
 
   def spotify_callback
+    binding.break
     auth_hash = request.env['omniauth.auth']
     access_token = auth_hash['credentials']['token']
     refresh_token = auth_hash['credentials']['refresh_token']

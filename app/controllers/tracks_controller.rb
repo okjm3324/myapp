@@ -8,6 +8,7 @@ class TracksController < ApplicationController
 
   def new
     @song = RSpotify::Track.find(params[:track_id])
+    @album = RSpotify::Album.find(params[:album_id])
     @track = Track.new
   end
 
@@ -16,8 +17,43 @@ class TracksController < ApplicationController
   end
 
   def create
-    @track = Track.new(track_params)
+    album_code = params[:track][:album_code]
+    song_code = params[:track][:song_code]
+  
+    ActiveRecord::Base.transaction do
+      @album = RSpotify::Album.find(album_code)
+      @song = RSpotify::Track.find(song_code)
+  
+      return render :new unless @album && @song
+  
+      title = @album.name
+      artist = @album.artists.first.name
+  
+      # アルバムがすでに存在するかチェック
+      @new_album = Album.find_or_create_by(album_code: album_code) do |album|
+        album.title = title
+        album.artist_name = artist
+      end
+  
+      song_name = @song.name
+      bpm = @song.audio_features.tempo
+  
+      # 曲がすでに存在するかチェック
+      @new_song = @new_album.songs.find_or_create_by(song_code: song_code) do |song|
+        song.song_name = song_name
+        song.bpm = bpm
+      end
+  
+      @track = @new_song.tracks.new(track_params.merge(user: current_user)) # カレントユーザーと紐付け
+  
+      if @track.save
+        redirect_to user_path(current_user)
+      else
+        render :new
+      end
+    end
   end
+  
 
   def update
   end
@@ -45,6 +81,7 @@ class TracksController < ApplicationController
 
   def play
     gon.access_token = session[:access_token]
+   # gon.access_token = session[:access_token]
     gon.track_id = "56v8WEnGzLByGsDAXDiv4d"
   end
 
@@ -53,6 +90,6 @@ class TracksController < ApplicationController
   private
 
   def track_params
-    params.require(:track).permit(:start, :end, :section, :bpm, :instrument)
+    params.require(:track).permit(:start, :end, :section, :bpm, :instrument, :original_bpm, :duration )
   end
 end

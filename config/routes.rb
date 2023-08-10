@@ -1,14 +1,7 @@
 Rails.application.routes.draw do
   get 'albums/index'
   get 'albums/search'
-
-  get 'tracks/index'
-  get 'tracks/new' ,to: 'tracks#new'
-  get 'tracks/show'
-  get 'tracks/create'
-  get 'tracks/update'
-  get 'tracks/destroy'
-
+  resources :tracks
   root "top#top"
   
   resources :users do

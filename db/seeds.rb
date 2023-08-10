@@ -62,7 +62,9 @@ users.each do |user|
       "end": rand(180..300),
       section: n + 1,
       bpm: rand(80..180),
-      instrument: user.instrument
+      instrument: user.instrument,
+      spotify_id: "XXXXXXXXspofify"
+      original_bpm: 159
     )
   end
 end

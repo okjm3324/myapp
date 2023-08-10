@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_01_041051) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_09_100356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_041051) do
     t.string "artist_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "album_code", null: false
+    t.index ["album_code"], name: "index_albums_on_album_code", unique: true
   end
 
   create_table "songs", force: :cascade do |t|
@@ -56,7 +58,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_041051) do
     t.integer "bpm"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "song_code", null: false
     t.index ["album_id"], name: "index_songs_on_album_id"
+    t.index ["song_code"], name: "index_songs_on_song_code", unique: true
   end
 
   create_table "tracks", force: :cascade do |t|
@@ -69,6 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_041051) do
     t.integer "instrument"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "original_bpm", null: false
+    t.integer "duration", null: false
     t.index ["song_id"], name: "index_tracks_on_song_id"
     t.index ["user_id"], name: "index_tracks_on_user_id"
   end
