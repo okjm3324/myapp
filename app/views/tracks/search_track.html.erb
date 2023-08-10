@@ -6,7 +6,7 @@
 
     <% @tracks.each do |track| %>
       <div class='w-auto h-4 bg-gray-300'>
-        <h3><%= link_to track.name, tracks_new_path(track_id: track.id)  %></h3>
+        <h3><%= link_to track.name, new_track_path(album_id: @album.id ,track_id: track.id)  %></h3>
       </div>
     <%end%>
   <%end%>
