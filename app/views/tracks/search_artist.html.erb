@@ -1,6 +1,6 @@
 <h1>アーティスト検索</h1>
 
-<%= form_with url: user_search_path, method: :get, local: true do |form| %>
+<%= form_with url: search_artist_tracks_path, method: :get, local: true do |form| %>
 <%= form.text_field :search %>
 <%= form.submit 'アーティスト名検索', name: nil %>
 <% end %>
@@ -11,7 +11,7 @@
   <% if @searchartists.present? %>
     <% @searchartists.each do |searchartist| %>
       <div>
-        <%= link_to searchartist.name,search_album_user_tracks_path(artist_id: searchartist.id) %>
+        <%= link_to searchartist.name,search_album_tracks_path(artist_id: searchartist.id) %>
         <h3><%= searchartist.name %></h3>
           <% if searchartist.images.any?%>
             <%image = searchartist.images[1]%>

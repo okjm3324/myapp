@@ -13,6 +13,8 @@ class TracksController < ApplicationController
   end
 
   def show
+    @track = Track.find_by(id: params[:id])
+    p @track
   
   end
 
@@ -80,9 +82,9 @@ class TracksController < ApplicationController
   end
 
   def play
-    gon.access_token = session[:access_token]
+    #gon.access_token = current_user.access_token
    # gon.access_token = session[:access_token]
-    gon.track_id = "56v8WEnGzLByGsDAXDiv4d"
+    #gon.track_id = "56v8WEnGzLByGsDAXDiv4d"
   end
 
   

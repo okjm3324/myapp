@@ -1,6 +1,8 @@
 
-    <div id="track-box-<%= track.id %>" class="flex h-60 w-10/12 bg-sky-400 bg-black m-auto rounded-lg mt-9" >
-    
+    <div id="track-box-<%= track.id %>" class="flex h-60 w-10/12 bg-sky-400 bg-black m-auto rounded-lg mt-9" data-access-token="<%= current_user.access_token %>" data-track-id="<%= track.song.song_code %>">
+    <input type="hidden" id="access-token-input" value="<%= current_user.access_token %>">
+    <input type="hidden" id="track-id-input" value="<%= track.id %>">
+    <input type="hidden" id="song-code-input" value="<%= track.song.song_code %>">
     <div class='flex-cot'>
       <div class="flex w-auto">
         <div class="flex flex-col ml-9 mr-90">
@@ -30,16 +32,8 @@
     </div>
 
   </div>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<%= javascript_include_tag 'spotify-play' %>
 
-  const track_box =  document.getElementById("track-box-<%= track.id %>")
-
-  track_box.addEventListener('click', ()=>{
-    console.log("<%= track.song.song_code %>")
-
-  })
-});
-</script>
  
    

@@ -32,7 +32,7 @@ class UserSessionsController < ApplicationController
 
     if User.find_by(email: spotify_user.email)
       #ユーザーがある場合ログイン画面へ
-      redireck_to login_path
+      redirect_to login_path
     else
       #ユーザー新規登録画面へ
       session[:spotify_user_info] = {

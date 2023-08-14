@@ -8,7 +8,7 @@
         <h3><%= album.name %></h3>
           <% if album.images.any?%>
             <%image = album.images[1]%>
-            <%= link_to   search_track_user_tracks_path(album_id: album.id) do %>
+            <%= link_to   search_track_tracks_path(album_id: album.id) do %>
               <%= image_tag(image["url"])%>
             <%end%>
           <%else%>
