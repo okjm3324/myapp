@@ -14,7 +14,8 @@ class TracksController < ApplicationController
 
   def show
     @track = Track.find_by(id: params[:id])
-  
+    @comments = @track.comments
+    @comment = Comment.new
   
   end
 

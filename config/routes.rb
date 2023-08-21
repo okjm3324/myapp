@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  get 'albums/index'
-  get 'albums/search'
   root "top#top"
+
+  resources :tracks do
+    resources :comments, only: [:create]
+  end
   
   resources :users
     resources :tracks do
