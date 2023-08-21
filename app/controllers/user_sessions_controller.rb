@@ -20,25 +20,25 @@ class UserSessionsController < ApplicationController
   end
 
   def spotify_callback
-    binding.break
     auth_hash = request.env['omniauth.auth']
     access_token = auth_hash['credentials']['token']
     refresh_token = auth_hash['credentials']['refresh_token']
     spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
-
+    binding.break
     # アクセストークンとリフレッシュトークンをセッションに保存
     session[:access_token] = access_token
     session[:refresh_token] = refresh_token
 
     if User.find_by(email: spotify_user.email)
       #ユーザーがある場合ログイン画面へ
-      redireck_to login_path
+      redirect_to login_path
     else
       #ユーザー新規登録画面へ
       session[:spotify_user_info] = {
         name: spotify_user.display_name,
         email: spotify_user.email,
-        images: spotify_user.images
+        images: spotify_user.images,
+        id: spotify_user.id
       }
       redirect_to new_user_path
     end
