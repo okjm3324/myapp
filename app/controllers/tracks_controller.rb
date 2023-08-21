@@ -14,7 +14,7 @@ class TracksController < ApplicationController
 
   def show
     @track = Track.find_by(id: params[:id])
-    p @track
+  
   
   end
 
@@ -85,8 +85,34 @@ class TracksController < ApplicationController
     #gon.access_token = current_user.access_token
    # gon.access_token = session[:access_token]
     #gon.track_id = "56v8WEnGzLByGsDAXDiv4d"
+
+    user = RSpotify::User.find(current_user.user_code)
+    player = RSpotify::Player.new(user)
+
+    track_uri = 'spotify:track:56v8WEnGzLByGsDAXDiv4d'
+    device_id = '9bca8a3a33bb1779c6ea9d7cb2e7903d55a0f75a'
+    player.play_track(device_id, track_uri)
+
+    sleep 5 # Wait for 5 seconds
+
+    position_ms = 10000
+    player.seek(position_ms)
   end
 
+  def play_and_seek
+    user = RSpotify::User.find(current_user.user_code)
+    player = user.player
+
+    track_uri = 'spotify:track:<TRACK_ID>'
+    player.play_track(nil, track_uri)
+
+    sleep 5 # Wait for 5 seconds
+
+    position_ms = 10000
+    player.seek(position_ms)
+
+    # Add any additional logic or responses you need here
+  end
   
 
   private

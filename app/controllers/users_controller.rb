@@ -22,7 +22,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    binding.break
     if @user.save
       redirect_to login_path
       flash[:notice] = 'ユーザーの作成に成功しました'
@@ -61,6 +60,10 @@ class UsersController < ApplicationController
   private
   
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :instrument, :avatar).merge(access_token: session[:access_token], refresh_access_token: session[:refresh_token])
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :instrument, :avatar).merge(
+      access_token: session[:access_token],
+      refresh_access_token: session[:refresh_token],
+      user_code: session[:spotify_user_info]['id'] 
+    )
   end
 end

@@ -1,2 +1,9 @@
 <h1>Tracks#show</h1>
-<p>Find me in app/views/tracks/show.html.erb</p>
+<h1><%= @track.song.song_name%></h1>
+<div id="track-box-<%= @track.id %>" class="flex h-60 w-10/12 bg-sky-400 bg-black m-auto rounded-lg mt-9">
+    <input type="hidden" id="access-token-input" value="<%= current_user.access_token %>">
+    <input type="hidden" id="track-id-input" value="<%= @track.id %>">
+    <input type="hidden" id="song-code-input" value="<%= @track.song.song_code %>">
+</div>
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<%= javascript_include_tag 'spotify-play' %>
