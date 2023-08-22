@@ -7,16 +7,25 @@
 </div>
 
 <div class="comment-wrapper border-top　mb-10">
-  <p class="mt-5">コメント一覧</p>
+  <p class="mt-5 ">コメント一覧</p>
   <% @comments.each do |c| %>
-    <div>
+    
+    <div class="w-10/12 rounded-lg flex flex-row m-auto">
       <% unless c.user.blank? %>
-        <a href="<%= user_path(c.user_id) %>"><%= image_tag c.user.avatar,
-          class:"rounded-circle icon_image mr-3 mb-3"%></a>
-        <% end %>
-      <%= c.user.name unless c.user.blank? %>
+       <div id='comment-box', class="w-1/12 h-1/12" >
+        <a href="<%= user_path(c.user_id) %>"><%= c.user.avatar.attached? ? (image_tag c.user.avatar, class:"rounded-full") : (image_tag "blank-profile", class:"rounded-full") %></a>
+         <div class='text-center'>
+            <%= c.user.name unless c.user.blank? %>
+          </div>
+        </div>
+        <div class='p-2 rounded-lg w-11/12 m-2 bg-gray-200'>
+          <%= c.content %>
+        </div>
+      <% end %>
+      </div>
+     
       <br />
-      <%= c.content %>
+      
     </div>
     <br />
   <% end %>
