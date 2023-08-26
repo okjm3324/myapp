@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   root "top#top"
-
- 
   
   resources :users
   resources :tracks do

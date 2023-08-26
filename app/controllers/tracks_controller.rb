@@ -56,9 +56,20 @@ class TracksController < ApplicationController
       end
     end
   end
+
+  def edit
+    @track = Track.find_by(id: params[:id])
+  end
   
 
   def update
+    @track = Track.find_by(id: params[:id])
+    if @track.update(track_params)
+      redirect_to user_path(current_user)
+    else
+      render :edit
+    end
+
   end
 
   def destroy
