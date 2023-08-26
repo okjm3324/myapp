@@ -62,7 +62,17 @@ class TracksController < ApplicationController
   end
 
   def destroy
+    @track = Track.find_by(id: params[:id])
+    @user = @track.user
+    if @track.destroy
+      flash[:notice] = 'トラックを削除しました。'
+      redirect_to user_path(@user)
+    else
+      flash[:alert] = 'トラックの削除に失敗しました。'
+      render 'users/show'
+    end
   end
+  
 
   def search_track
     @album = RSpotify::Album.find(params[:album_id])
