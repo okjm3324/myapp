@@ -14,7 +14,8 @@ class TracksController < ApplicationController
 
   def show
     @track = Track.find_by(id: params[:id])
-  
+    @comments = @track.comments
+    @comment = Comment.new
   
   end
 
@@ -55,13 +56,34 @@ class TracksController < ApplicationController
       end
     end
   end
+
+  def edit
+    @track = Track.find_by(id: params[:id])
+  end
   
 
   def update
+    @track = Track.find_by(id: params[:id])
+    if @track.update(track_params)
+      redirect_to user_path(current_user)
+    else
+      render :edit
+    end
+
   end
 
   def destroy
+    @track = Track.find_by(id: params[:id])
+    @user = @track.user
+    if @track.destroy
+      flash[:notice] = 'トラックを削除しました。'
+      redirect_to user_path(@user)
+    else
+      flash[:alert] = 'トラックの削除に失敗しました。'
+      render 'users/show'
+    end
   end
+  
 
   def search_track
     @album = RSpotify::Album.find(params[:album_id])

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_16_152618) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_21_163126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_152618) do
     t.datetime "updated_at", null: false
     t.string "album_code", null: false
     t.index ["album_code"], name: "index_albums_on_album_code", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "track_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["track_id"], name: "index_comments_on_track_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "songs", force: :cascade do |t|
@@ -103,6 +113,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_152618) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "tracks"
+  add_foreign_key "comments", "users"
   add_foreign_key "songs", "albums"
   add_foreign_key "tracks", "songs"
   add_foreign_key "tracks", "users"

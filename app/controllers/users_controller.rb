@@ -16,8 +16,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.includes(tracks: {song: :album}).find_by(id: params[:id])
-    @tracks = @user.tracks
-
+    if @user.tracks
+      @tracks = @user.tracks
+    end
   end
 
   def create
