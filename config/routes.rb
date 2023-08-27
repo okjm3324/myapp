@@ -3,12 +3,12 @@ Rails.application.routes.draw do
   
   resources :users
   resources :tracks do
-    resources :comments, only: [:create]
-    collection do
-      get 'search_artist'
-      get 'search_album'
-      get 'search_track'
-    end
+    resources :comments, only: [:create ]
+      collection do
+        get 'search_artist'
+        get 'search_album'
+        get 'search_track'
+      end
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

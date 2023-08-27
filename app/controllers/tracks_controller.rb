@@ -4,6 +4,7 @@ class TracksController < ApplicationController
   RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_SECRET_ID'])
 
   def index
+    @tracks = Track.all
   end
 
   def new
