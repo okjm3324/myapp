@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
+    if @user.update(user_edit_params)
       @user.avatar.attach(params[:user][:avatar]) if params[:user][:avatar]
       redirect_to @user, notice: "ユーザー情報を更新しました。"
     else
@@ -66,5 +66,9 @@ class UsersController < ApplicationController
       refresh_access_token: session[:refresh_token],
       user_code: session[:spotify_user_info]['id'] 
     )
+  end
+
+  def user_edit_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :instrument, :avatar)
   end
 end
