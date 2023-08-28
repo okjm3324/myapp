@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_many :tracks, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true, if: -> { new_record? || changes[:crypted_password] }
   validates :email, presence: true, uniqueness: true, if: -> { new_record? || changes[:crypted_password] }

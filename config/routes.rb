@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   root "top#top"
   
-  resources :users
+  resources :users do
+    resources :likes, only: [:index, :create, :destroy]
+  end
+
   resources :tracks do
     resources :comments, only: [:create ]
       collection do
