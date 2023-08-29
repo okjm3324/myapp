@@ -14,7 +14,6 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    binding.break
     track = Track.find(params[:track_id])
     like = current_user.likes.find_by(track_id: track.id)
     like.destroy

@@ -8,6 +8,6 @@ class Track < ApplicationRecord
   enum instrument: { guitar: 0, bass: 1, drums: 2, keyboard: 3, sax: 4 }
 
   def liked_by?(user)
-    favorites.exists?(user_id: user.id)
+    like.where(user_id: user.id).exists?
   end
 end
