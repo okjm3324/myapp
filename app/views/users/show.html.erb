@@ -112,7 +112,8 @@
     </div>
   </div>
   <div class='bg-gray-300 w-1/2 h-16 border-2 border-gray-100 rounded text-center py-2 hover:opacity-75 flex items-center justify-center cursor-pointer'>
-    <div> <p class='font-medium'>like</p></div>
+    
+    <%= link_to 'like!',likes_user_path(@user), class:'font-medium'%>
   </div>
 </div>
   <div id="track-container" class='m-auto'>

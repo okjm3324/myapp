@@ -38,6 +38,10 @@
     <div class="m-2">
       <%= link_to 'edit', edit_track_path(track.id) %>
     </div>
+    <div>
+        <div><%=  link_to 'like', track_likes_path(track.id), data: { "turbo-method": :post }  %></div>
+        <div><%= button_to 'liked',  track_likes_path(track.id), method: :delete %></div>
+    </div>
   </div>
 <%# <script src="https://sdk.scdn.co/spotify-player.js"></script>
 <%= javascript_include_tag 'spotify-play' %>
