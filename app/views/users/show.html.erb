@@ -99,11 +99,17 @@
   </nav>
 
   <!-- Hero section with heading, subheading and button -->
-  <div
+  <div id='user-image-container'
     class="bg-neutral-50 px-6 py-20 text-center text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200 ">
     <div class="w-1/12 h-1/12 m-auto" ><%= @user.avatar.attached? ? (image_tag @user.avatar, class:"rounded-full") : (image_tag "blank-profile", class:"rounded-full") %></div>
     <h3 class="mb-8 text-3xl font-bold mt-10"><%= @user.name%></h3>
+    <div id='follow-btn-wrapper', class='w-auto h-auto'>
+      <div id='follow-btn'>
+       <%= link_to 'follow', '#', class: 'text-white py-2 px-4 rounded bg-indigo-500 hover:bg-indigo-600'%>
+      </div>
   </div>
+  </div>
+  
 </header>
 <div id='serecter', class='flex flex-row w-auto'>
   <div class='bg-gray-300 w-1/2 h-16 border-2 border-gray-100 rounded text-center py-2 hover:opacity-75 flex items-center justify-center cursor-pointer'>
