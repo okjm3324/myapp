@@ -105,7 +105,17 @@
     <h3 class="mb-8 text-3xl font-bold mt-10"><%= @user.name%></h3>
   </div>
 </header>
-
+<div id='serecter', class='flex flex-row w-auto'>
+  <div class='bg-gray-300 w-1/2 h-16 border-2 border-gray-100 rounded text-center py-2 hover:opacity-75 flex items-center justify-center cursor-pointer'>
+    <div>
+      <p class='font-medium leading-relaxed'>track</p>
+    </div>
+  </div>
+  <div class='bg-gray-300 w-1/2 h-16 border-2 border-gray-100 rounded text-center py-2 hover:opacity-75 flex items-center justify-center cursor-pointer'>
+    
+    <%= link_to 'like!',likes_user_path(@user), class:'font-medium'%>
+  </div>
+</div>
   <div id="track-container" class='m-auto'>
   
   <%=  render  @tracks %>

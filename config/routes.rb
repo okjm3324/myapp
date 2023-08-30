@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
   root "top#top"
   
-  resources :users
+  resources :users do
+    member do
+      get :likes
+    end
+  end
+    
+
+
   resources :tracks do
+    resource :likes, only: [:index, :create, :destroy]
     resources :comments, only: [:create ]
       collection do
         get 'search_artist'

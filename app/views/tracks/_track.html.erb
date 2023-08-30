@@ -32,11 +32,24 @@
   </div>
 <% end %>
   <div class="ml-9 h-9 w-24 border-double font-semibold flex flex-row">
+  <% if track.user_id == current_user.id %>
+  <div id='track-editer-container'>
     <div class="m-2">
       <%= button_to "delete", track_path(track.id), method: :delete %>
     </div>
     <div class="m-2">
       <%= link_to 'edit', edit_track_path(track.id) %>
+    </div>
+  </div>
+  <% end %>
+    <div id='like-container'>
+      <% if track.liked_by?(current_user) %>
+        <%= track.like.count%>
+        <div><%= button_to 'liked',  track_likes_path(track.id), method: :delete %></div>
+      <% else %>
+      <%= track.like.count%>
+        <div><%=  link_to 'like', track_likes_path(track.id), data: { "turbo-method": :post }  %></div>
+      <% end %>
     </div>
   </div>
 <%# <script src="https://sdk.scdn.co/spotify-player.js"></script>

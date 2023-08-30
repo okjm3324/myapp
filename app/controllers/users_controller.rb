@@ -57,6 +57,11 @@ class UsersController < ApplicationController
     # Now you can access user's private data, create playlists and much more
   end
 
+  def likes
+    @user = User.find(params[:id])
+    likes = Like.where(user_id: @user.id).pluck(:track_id)
+    @like_tracks = Track.find(likes)
+  end
 
   private
   
