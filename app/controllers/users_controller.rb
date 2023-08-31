@@ -63,6 +63,20 @@ class UsersController < ApplicationController
     @like_tracks = Track.find(likes)
   end
 
+  def following
+    @title = "Following"
+    @user  = User.find(params[:id])
+    @users = @user.following.page(params[:page]).per(10)
+    render 'show_follow', status: :unprocessable_entity
+  end
+
+  def followers
+    @title = "Followers"
+    @user  = User.find(params[:id])
+    @users = @user.followers.page(params[:page]).per(10)
+    render 'show_follow', status: :unprocessable_entity
+  end
+
   private
   
   def user_params
