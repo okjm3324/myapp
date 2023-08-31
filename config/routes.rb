@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   resources :users do
     member do
-      get :likes
+      get :likes, :following, :followers
     end
   end
     
@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get    'login',  to: 'user_sessions#new'
   post   'login',  to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy', as: :logout
+  resources :relationships,       only: [:create, :destroy]
 
   # Defines the root path route ("/")
   # root "articles#index"

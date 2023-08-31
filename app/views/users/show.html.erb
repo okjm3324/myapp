@@ -73,7 +73,7 @@
             <%= link_to "Logout", :logout, id: 'sign-out-link', data: { "turbo-method": :delete }, class: "block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90" %>
           </li>
           <li class="mb-2 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-            <%= link_to "setting", edit_user_path(@user), id: 'setting-link', class: "block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90" %>
+            <%= link_to "setting", edit_user_path(current_user), id: 'setting-link', class: "block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90" %>
           </li>
           <%# プロフィールドロップダウンメニュー %>
                         <div class="py-1 " role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
@@ -104,9 +104,10 @@
     <div class="w-1/12 h-1/12 m-auto" ><%= @user.avatar.attached? ? (image_tag @user.avatar, class:"rounded-full") : (image_tag "blank-profile", class:"rounded-full") %></div>
     <h3 class="mb-8 text-3xl font-bold mt-10"><%= @user.name%></h3>
     <div id='follow-btn-wrapper', class='w-auto h-auto'>
-      <div id='follow-btn'>
-       <%= link_to 'follow', '#', class: 'text-white py-2 px-4 rounded bg-indigo-500 hover:bg-indigo-600'%>
-      </div>
+      <%= render 'follow_form' if logged_in? %>
+       <section class="stats">
+        <%= render 'shared/stats' %>
+      </section>
   </div>
   </div>
   
