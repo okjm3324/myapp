@@ -1,0 +1,28 @@
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <a class="btn btn-ghost normal-case text-xl">musicapp</a>
+  </div>
+  <% if logged_in? %>
+  <div class="flex-none gap-2">
+    <div class="dropdown dropdown-end">
+      <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+        <div class="w-10 rounded-full">
+          <%= image_tag current_user.avatar %>
+        </div>
+      </label>
+   
+      <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+        <li>
+          <a class="justify-between">
+            Profile
+            <span class="badge">New</span>
+          </a>
+        </li>
+        <li><%= link_to "Timeline", tracks_path, id: 'timeline-link'%></li>
+        <li><%= link_to "setting", edit_user_path(current_user), id: 'setting-link'%></li>
+         <li><%= link_to "Logout", :logout, id: 'sign-out-link', data: { "turbo-method": :delete } %></li>
+      </ul>
+    </div>
+  </div>
+  <% end %>
+</div>
