@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :tracks do
     resource :likes, only: [:index, :create, :destroy]
-    resources :comments, only: [:create ]
+    resources :comments, only: [:create, :destroy]
       collection do
         get 'search_artist'
         get 'search_album'

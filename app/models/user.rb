@@ -50,5 +50,9 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  def own?(object)
+    object.user_id == id
+  end
+
   
 end
