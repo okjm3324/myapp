@@ -24,7 +24,6 @@ class UserSessionsController < ApplicationController
     access_token = auth_hash['credentials']['token']
     refresh_token = auth_hash['credentials']['refresh_token']
     spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
-    binding.break
     # アクセストークンとリフレッシュトークンをセッションに保存
     session[:access_token] = access_token
     session[:refresh_token] = refresh_token
