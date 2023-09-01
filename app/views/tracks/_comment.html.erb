@@ -1,2 +1,24 @@
-<p><%= @comment.user%></p>
-<p><%= @comment.content%></p>
+<div class="w-10/12 rounded-lg flex flex-row m-auto">
+  <% unless comment.user.blank? %>
+       <div id='comment-box', class="w-1/12 h-1/12" >
+         <a href="<%= user_path(comment.user_id) %>"><%= comment.user.avatar.attached? ? (image_tag comment.user.avatar, class:"rounded-full") : (image_tag "blank-profile", class:"rounded-full") %></a>
+            <div class='text-center'>
+              <%= comment.user.name unless comment.user.blank? %>
+            </div>
+        </div>
+        <div class='p-2 rounded-lg w-11/12 m-2 bg-gray-200 relative'>
+          <%= comment.content %>
+            <% if current_user == comment.user%>
+              <div id='comment-editer-container', class='flex flex-row absolute bottom-0 right-16 h-14 w-auto h'>
+                  <div class="m-2">
+                    <%= button_to track_comment_path(comment.track.id,comment.id)  , method: :delete do%>
+                      <i class="fa-solid fa-trash"></i>
+                    <%end%>
+                  </div>
+              
+              </div>
+          <% end %>
+        </div>
+       
+  <% end %>
+</div>

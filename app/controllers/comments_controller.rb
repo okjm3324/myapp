@@ -22,9 +22,13 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    
   end
 
-  def destory
+  def destroy
+    current_user.comments.find(params[:id]).destroy!
+    flash[:notice] = 'コメントを削除しました'
+    redirect_to track_path(params[:track_id])
   end
 
   private
