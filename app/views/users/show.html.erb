@@ -25,9 +25,10 @@
     <%= link_to 'like!',likes_user_path(@user), class:'font-medium'%>
   </div>
 </div>
-  <div id="track-container" class='m-auto'>
+  <div id="track-container" class='grid grid-cols-3 gap-4'>
   
-  <%=  render  @tracks %>
+    <%=  render  @tracks %>
+
   </div>
   <div class="fixed right-20 bottom-20 cursor-pointer z-50">
     <%= link_to image_tag('create-96'),  search_artist_tracks_path %>

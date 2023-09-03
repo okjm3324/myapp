@@ -32,11 +32,13 @@ class TracksController < ApplicationController
   
       title = @album.name
       artist = @album.artists.first.name
+      album_image = @album.images[1]['url']
   
       # アルバムがすでに存在するかチェック
       @new_album = Album.find_or_create_by(album_code: album_code) do |album|
         album.title = title
         album.artist_name = artist
+        album.album_image = album_image
       end
   
       song_name = @song.name
