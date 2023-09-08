@@ -5,9 +5,10 @@ Rails.application.routes.draw do
     member do
       get :likes, :following, :followers
     end
+    collection do
+      get 'refresh_token'
+    end
   end
-    
-
 
   resources :tracks do
     resource :likes, only: [:index, :create, :destroy]
