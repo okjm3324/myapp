@@ -2,6 +2,7 @@ class TracksController < ApplicationController
 
   require 'rspotify'
   RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_SECRET_ID'])
+  before_action :check_and_refresh_token, only: [:show]
 
   def index
     @tracks = Track.all
@@ -17,6 +18,7 @@ class TracksController < ApplicationController
     @track = Track.find_by(id: params[:id])
     @comments = @track.comments
     @comment = Comment.new
+    @spotify_user = current_user.spotify_user
   
   end
 
@@ -126,7 +128,8 @@ class TracksController < ApplicationController
 
   def play_and_seek
     user = RSpotify::User.find(current_user.user_code)
-    player = user.player
+    sportify_user = user.spotify_user
+    player = spotify_user.player
 
     track_uri = 'spotify:track:<TRACK_ID>'
     player.play_track(nil, track_uri)

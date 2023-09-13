@@ -57,6 +57,14 @@ class UsersController < ApplicationController
     # Now you can access user's private data, create playlists and much more
   end
 
+  # users_controller.rb
+  def refresh_token
+    current_user.refresh_spotify_token!
+    render json: { access_token: current_user.access_token }
+  end
+
+  
+
   def likes
     @user = User.find(params[:id])
     likes = Like.where(user_id: @user.id).pluck(:track_id)
@@ -83,6 +91,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :instrument, :avatar).merge(
       access_token: session[:access_token],
       refresh_access_token: session[:refresh_token],
+      token_deadline: session[:token_deadline],
       user_code: session[:spotify_user_info]['id'] 
     )
   end

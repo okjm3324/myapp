@@ -1,10 +1,13 @@
 <h1>Tracks#show</h1>
 <h1><%= @track.song.song_name%></h1>
 <div id="track-box-<%= @track.id %>" class="flex h-60 w-10/12 bg-sky-400 bg-black m-auto rounded-lg mt-9">
-    <input type="hidden" id="access-token-input" value="<%= current_user.access_token %>">
+    <input type="hidden" id="access-token-input" value="<%= @spotify_user.credentials['token']%>">
     <input type="hidden" id="track-id-input" value="<%= @track.id %>">
     <input type="hidden" id="song-code-input" value="<%= @track.song.song_code %>">
+    <input type="hidden" id="a-point-input" value="30000"> <!-- 30,000 milliseconds (or 30 seconds) -->
 </div>
+<button id="start-loop-button">Start Loop</button>
+
 
 <div class="comment-wrapper border-top mb-10">
   <p class="text-center mt-2 font-bold">コメント一覧</p>

@@ -54,5 +54,31 @@ class User < ApplicationRecord
     object.user_id == id
   end
 
+  def spotify_user
+    callback_proc = Proc.new do |new_access_token, token_lifetime|
+      now = Time.now.utc.to_i
+      deadline = now+token_lifetime
+      self.update!(access_token: new_access_token, token_deadline: deadline)
+    end
+
+    user_credentials = {
+      'token' => self.access_token,
+      'refresh_token' => self.refresh_access_token,
+      'access_refresh_callback' => callback_proc
+    }
+
+    RSpotify::User.new(
+      {
+        'credentials' => user_credentials,
+        'id' => self.user_code
+      }
+    )
+  end
+
+  def refresh_spotify_token!
+    user = spotify_user
+    # RSpotifyがトークンの有効性を確認し、必要に応じてリフレッシュを行います。
+    user.playlists # この操作により、トークンが有効か確認され、リフレッシュが行われる可能性があります。
+  end
   
 end
