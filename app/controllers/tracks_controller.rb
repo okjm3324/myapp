@@ -2,6 +2,7 @@ class TracksController < ApplicationController
 
   require 'rspotify'
   RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_SECRET_ID'])
+  before_action :check_and_refresh_token, only: [:show]
 
   def index
     @tracks = Track.all
