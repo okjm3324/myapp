@@ -1,27 +1,48 @@
 <h1>トラック</h1>
+<% if @track.errors.any? %>
+  <div class="alert alert-warning">
+    <div class="flex-1">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mx-2">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 1h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 13c-.77 1.333.192 3 1.732 3z"></path>
+      </svg>
+      <label><strong>Warning!</strong></label>
+      <ul>
+        <% @track.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
 
-<%= form_with model: @track  do |f|%>
+<%= form_with model: @track, local: true,  data: { turbo: "false" } do |f|%>
 <%= f.hidden_field :song_code, :value => @song.id %> 
 <%= f.hidden_field :album_code, :value => @album.id %> 
+<%= f.hidden_field :access_token, :value => @album.id %> 
+  const track_id = document.getElementById('song-code-input').value; 
+
 <div class="flex flex-col">
   <%= f.label :title  %>
-  <%= f.text_field :title, class:'border-2 w-96', value:@song.name %>
+  <%= f.text_field :title, class:'border-2 w-96', value:@song.name, readonly: true %>
 
   <%= f.label :original_bpm  %>
-  <%= f.text_field :original_bpm, class:'border-2 w-96', value:@song.audio_features.tempo %>
+  <%= f.text_field :original_bpm, class:'border-2 w-96', value:@song.audio_features.tempo, readonly: true %>
 
   <%= f.label :duration  %>
-  <%= f.text_field :duration, class:'border-2 w-96', value:@song.audio_features.duration_ms %>
+  <%= f.text_field :duration, class:'border-2 w-96', value:@song.audio_features.duration_ms, readonly: true %>
+  <input type="hidden" id="start_position" name="track[start]" value="">
+  <input type="hidden" id="end_position" name="track[end]" value="">
+  <button type="button" id="set_start_position_button">A位置設定</button>
+  <button type="button" id="set_end_position_button">B位置設定</button>
+
+
+  <%= f.label :start_time  %>
+  <%= f.text_field :start_time, class:'border-2 w-96', value:0 %>
 
 
 
-  <%= f.label :start  %>
-  <%= f.text_field :start, class:'border-2 w-96', value:0 %>
-
-
-
-<%= f.label :end %>
-<%= f.text_field :end, class:'border-2 w-96', value:0 %>
+<%= f.label :end_time %>
+<%= f.text_field :end_time, class:'border-2 w-96', value:0 %>
 
 <%= f.label :section %>
 <%= f.select :section, [["intro", :intro], ["verse", :verse], ["bridge", :bridge], ["chorus", :chorus], ["solo", :solo],["ending", :ending]], { include_blank: "選択してください" }, { class: "border-2 w-96" } %>
