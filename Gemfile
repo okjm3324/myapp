@@ -83,3 +83,4 @@ gem 'gon'
 gem 'config'
 gem 'kaminari'
 gem "font-awesome-sass", "~> 6.4.2"
+gem 'bullet'

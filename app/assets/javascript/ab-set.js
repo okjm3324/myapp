@@ -1,61 +1,79 @@
+document.addEventListener('DOMContentLoaded', () => {
 window.onSpotifyWebPlaybackSDKReady = () => {
 
-  const token = document.getElementById('access-token-input').value; 
-  const track_id = document.getElementById('song-code-input').value; 
-  const player = new Spotify.Player({
-    name: 'Web Playback SDK Quick Start Player',
+let player;
+let positionA = null;
+let positionB = null;
+const token = document.getElementById('token-input').value;  // あなたのSpotify APIトークンをここに入れてください
+const song_code = document.getElementById('song-code-input').value;
+
+
+function initPlayer() {
+  player = new Spotify.Player({
+    name: 'Web Playback SDK',
     getOAuthToken: cb => { cb(token); }
   });
 
-  // エラーハンドリング
+  // エラー処理
   player.addListener('initialization_error', ({ message }) => { console.error(message); });
   player.addListener('authentication_error', ({ message }) => { console.error(message); });
   player.addListener('account_error', ({ message }) => { console.error(message); });
   player.addListener('playback_error', ({ message }) => { console.error(message); });
 
-  // 再生が準備完了したらコンソールに表示
+  // 再生準備完了
   player.addListener('ready', ({ device_id }) => {
     console.log('Ready with Device ID', device_id);
   });
 
-  // セッションが終了したらコンソールに表示
-  player.addListener('not_ready', ({ device_id }) => {
-    console.log('Device ID has gone offline', device_id);
+  // 再生状態変更
+  player.addListener('player_state_changed', state => {
+    console.log(state);
   });
 
-  // Connect to the player!
   player.connect();
+}
 
-  // A位置とB位置を格納する変数
-  let start_position, end_position;
+document.getElementById('play_button').addEventListener('click', () => {
+  playSong(`spotify:track:${song_code}`);  // あなたのトラックURIをここに入れてください
+});
 
-  // A位置を設定する関数
-  function setStartPosition() {
-    player.getCurrentState().then(state => {
-      if (!state) {
-        console.error('User is not playing music through the Web Playback SDK');
-        return;
-      }
-      
-      start_position = state.position;
-      document.getElementById('start_position').value = start_position;
-    });
-  }
+document.getElementById('set_position_button').addEventListener('click', () => {
+  setPosition();
+});
 
-  // B位置を設定する関数
-  function setEndPosition() {
-    player.getCurrentState().then(state => {
-      if (!state) {
-        console.error('User is not playing music through the Web Playback SDK');
-        return;
-      }
-      
-      end_position = state.position;
-      document.getElementById('end_position').value = end_position;
-    });
-  }
+function playSong(trackURI) {
+  fetch(`https://api.spotify.com/v1/me/player/play?device_id=${player._options.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ uris: [trackURI] }),
+  });
+}
 
-  // HTMLのボタンに関連付ける
-  document.getElementById('set_start_position_button').onclick = setStartPosition;
-  document.getElementById('set_end_position_button').onclick = setEndPosition;
+function setPosition() {
+  player.getCurrentState().then(state => {
+    if (!state) {
+      console.error('Player state is null');
+      return;
+    }
+
+    if (positionA === null) {
+      positionA = state.position;
+      console.log(`A position set at ${positionA}ms`);
+    } else if (positionB === null) {
+      positionB = state.position;
+      console.log(`B position set at ${positionB}ms`);
+    } else {
+      positionA = null;
+      positionB = null;
+      console.log('A and B positions reset');
+    }
+  });
+}
+
+initPlayer();
+
 };
+});
