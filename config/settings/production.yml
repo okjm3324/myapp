@@ -1,2 +1,2 @@
 sorcery:
-  callback_url: "https://spotified-music-app.herokuapp.com/"/oauth/callback?
+  callback_url: "https://spotified-music-app.herokuapp.com/oauth/callback?"
