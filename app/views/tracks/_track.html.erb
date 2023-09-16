@@ -1,44 +1,71 @@
-
-    <div id='track-box' class="flex h-60 w-10/12 bg-sky-400 bg-black m-auto rounded-lg mt-9" >
-    <div class='flex-cot'>
-      <div class="flex w-auto">
-        <div class="flex flex-col ml-9 mr-90">
-          <div id='artist-box' class='mt-9 font-semibold'><%= track.song.album.artist_name %></div>
-          <div id='title-box' class='mt-9 font-semibold'><%= track.song.song_name %></div>
-        </div>
-
-          <div id='tempo-box' class='flex bg-sky-100 flex-col ml-auto'>
-            <div class="text-7xl"><%= track.bpm %></div>
-            <div class="bg-black h-1 w-full"></div>
-            <div class="text-7xl"><%= track.song.bpm %></div>
+ <div id='track-card' class="card w-96 bg-base-100 shadow-xl">
+      <input type="hidden" id="access-token-input" value="<%= current_user.access_token %>">
+      <input type="hidden" id="track-id-input" value="<%= track.id %>">
+      <input type="hidden" id="song-code-input" value="<%= track.song.song_code %>">
+    <div class='flex flex-row mt-3 ml-2'>
+      <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+          <div class="w-10 rounded-full">
+              <%= track.user.avatar.attached? ? (image_tag track.user.avatar, class:"rounded-full") : (image_tag "blank-profile", class:"rounded-full") %>
           </div>
+      </label>
+       <div class='text-cente ml-2 text-center pt-3'>
+        <%= track.user.name %>
+       </div>
+    </div>
+  <%= link_to track_path(track.id) do %>
+    <figure class="px-10 pt-2 relative group">
+      <% if track.song.album.album_image %>
+          <div class="relative rounded-xl overflow-hidden">
+            <%= image_tag track.song.album.album_image, class:'rounded-xl'%>
+            <div class="overlay absolute inset-0 bg-black opacity-0 transition-opacity group-hover:opacity-50"></div>
+          </div>
+      <% end %>
+      <span class="font-bold text-white text-5xl absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
+        <%= "#{((track.bpm.to_f/track.song.bpm) * 100).round(1)}" + '%' %>
+      </span>
+    </figure>
+  <% end %>
 
+  <div class="card-body items-center ">
+    <div class='flex flex-row'>
+      <div id='track-info'>
+        <h2 class="card-title"><%= track.song.song_name %></h2>
+        <p><%= track.song.album.artist_name %></p>
       </div>
+      <div id='tempo-box' class='flex flex-col bg-sky-100 ml-4'>
+        <div class="text-2xl"><%= track.bpm %></div>
+        <div class="bg-green-400 h-1 w-full"></div>
+        <div class="text-2xl"><%= track.song.bpm %></div>
+    </div>
+   </div>
+  </div>
 
-      <div id='tag-box' class='flex'>
+      <div id='tag-box' class='flex flex-row mb-2'>
         <div class='flex'>
           <div class="ml-9 border-double font-semibold"><%= track.instrument%></div>
           <div class="ml-9 border-double font-semibold"><%= track.section%></div>
         </div>
-        <div class='flex ml-52'>
-          <div class="ml-9 h-9 w-24 border-double font-semibold">削除</div>
-          <div class="ml-9 border-double font-semibold" >編集</div>
-        </div>
       </div>
-    </div>
-    </div>
 
-  </div>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
+      <div class='flex flex-row'>
+        <div id='like-wrapper'class='ml-10'>
+           <%= render 'tracks/like', track: track %>
+        </div>
+        <% if current_user.own?(track)%>
+        <div id='editer-wrapper' class='flex flex-row ml-auto mr-10 mb-3'>
+          <div id='edit-wrapper'>
+            <%= link_to edit_track_path(track.id) do%>
+              <i class="fa-solid fa-pen"></i>
+            <%end%>
+          </div>
+          <div id='delete-wrapper' class='ml-8'>
+              <%= button_to track_path(track.id), method: :delete do%>
+                <i class="fa-solid fa-trash"></i>
+              <%end%>
+          </div>
+        </div>
+        <% end %>
 
-  const track_box =  document.getElementById("track-box")
-
-  track_box.addEventListener('click', ()=>{
-    console.log('clicked')
-
-  })
-});
-</script>
- 
+      </div>
+</div>
    

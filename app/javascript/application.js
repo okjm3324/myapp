@@ -3,3 +3,4 @@
 // Turbo.session.drive = false
 import "@hotwired/turbo-rails"
 import "./controllers"
+import "./play"

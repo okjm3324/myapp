@@ -1,42 +1,146 @@
 <h1>トラック</h1>
-
-<%= form_with model: @user  do |f|%>
-<div class="flex flex-col">
-  <%= f.label :title  %>
-  <%= f.text_field :start, class:'border-2 w-96', value:@song.name %>
-
-  <%= f.label :original_bpm  %>
-  <%= f.text_field :original_bpm, class:'border-2 w-96', value:@song.audio_features.tempo %>
-
-  <%= f.label :duration  %>
-  <%= f.text_field :original_bpm, class:'border-2 w-96', value:@song.audio_features.duration_ms %>
-
-
-
-  <%= f.label :start  %>
-  <%= f.text_field :start, class:'border-2 w-96', value:0 %>
-
-
-
-<%= f.label :end %>
-<%= f.text_field :end, class:'border-2 w-96', value:0 %>
-
-<%= f.label :section %>
-<%= f.select :section, [["intro", 0], ["verse", 1], ["bridge", 2], ["chorus", 3], ["solo", 4],["ending", 5]], { include_blank: "選択してください" }, { class: "border-2 w-96" } %>
-
-<%= f.label :bpm %>
-<%= f.text_field :bpm, class:'border-2 w-96' %>
-
-<%= f.label :instrument %>
-<%= f.select :instrument, [["ギター", 0], ["ベース", 1], ["ドラム", 2], ["キーボード", 3], ["サックス", 4]], { include_blank: "選択してください" }, { class: "border-2 w-96" } %>
-
-
-<%= f.submit 'submit'%>
-
-</div>
-
+<% if @track.errors.any? %>
+  <div class="alert alert-warning">
+    <div class="flex-1">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mx-2">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 1h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 13c-.77 1.333.192 3 1.732 3z"></path>
+      </svg>
+      <label><strong>Warning!</strong></label>
+      <ul>
+        <% @track.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 <% end %>
 
+    <%# 値渡し %>
+    <input type="hidden" id="access-token-input" value="<%= current_user.access_token%>">
+    <input type="hidden" id="song-code-input" value="<%= @song.id %>">
+
+      <div class="player">
+          <div class="current-time">0:00</div>
+          <input type="range" min="0" max="100" value="0" class="seekbar" id="seekbar"/>
+          <div class="total-time">0:00</div>
+      </div>
+      <button type="button", id="play-button">Play</button>
+
+
+<%= form_with model: @track, local: true,  data: { turbo: "false" } do |f|%>
+  <%= f.hidden_field :song_code, id:'song-code-input', :value => @song.id %> 
+  <%= f.hidden_field :album_code, :value => @album.id %> 
+  <%= f.hidden_field :access_token, id:'token-input', :value => current_user.access_token %> 
+
+ <div class="relative flex flex-col justify-center h-screen overflow-hidden">
+    <div class="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
+      <h1 class="text-3xl font-semibold text-center text-purple-700">create track</h1>
+      
+
+      
+      <%# <img src="<%= @song.album.images.first["url"]", class="w-auto h-30 rounded-md"> %> 
+      <div id="embed-iframe"></div>
+        <div class="flex flex-col">
+          <div class='form-control m-2'>
+            <%= f.label :title  %>
+            <%= f.text_field :title, class:"w-full input input-bordered input-primary", value:@song.name, readonly: true %>
+          </div>
+
+  
+      <div class="form-control m-2">
+        <%= f.label :start_time %>
+        <%= f.range_field :start_time, min: 0, max: @song.audio_features.duration_ms, class:'w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg dark:bg-gray-700' %>
+        <output for="track_start_time" id="start-time-output">0:00</output>
+      </div>
+      <div class="form-control m-2">
+        <%= f.label :end_time %>
+        <%= f.range_field :end_time, min: 0, max: @song.audio_features.duration_ms, class:'w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg dark:bg-gray-700' %>
+        <output for="track_end_time" id="end-time-output">
+        </output>
+      </div>
+
+          <div class='form-control m-2'>
+            <%= f.label :original_bpm  %>
+            <%= f.text_field :original_bpm, class:"w-full input input-bordered input-primary", value:@song.audio_features.tempo, readonly: true %>
+          </div>
+
+          <div class='form-control m-2'>
+            <%= f.label :bpm %>
+            <%= f.text_field :bpm, class:"w-full input input-bordered input-primary" %>
+          </div>
+
+          <div class='form-control m-2'>
+            <%= f.label :duration  %>
+            <%= f.hidden_field :duration, value: @song.audio_features.duration_ms %>
+            <%= text_field_tag :duration_display, convert_milliseconds_to_minutes_and_seconds(@song.audio_features.duration_ms), class:"w-full input input-bordered input-primary", readonly: true %>
+          </div>
+
+        <div class='form-control m-2'>
+          <%= f.label :section %>
+          <%= f.select :section, [["intro", :intro], ["verse", :verse], ["bridge", :bridge], ["chorus", :chorus], ["solo", :solo],["ending", :ending]], { include_blank: "選択してください" }, { class: "border-2 w-96" } %>
+        </div>
+
+        <div class='form-control m-2'>
+          <%= f.label :instrument %>
+          <%= f.select :instrument, [["guitar", :guitar], ["bass", :bass], ["drums", :drums], ["keyboard", :keyboard], ["sax", :sax]], { include_blank: "選択してください" }, { class: "border-2 w-96" } %>
+        </div>
+
+
+        <%= f.submit 'submit', class:'btn btn-block btn-primary'%>
+
+    </div>
+  </div> 
+</div>
+<% end %>
+<script>
+  document.addEventListener("turbo:load", () => {
+  const startSlider = document.querySelector("input[name='track[start_time]']");
+  const endSlider = document.querySelector("input[name='track[end_time]']");
+  const startTimeDisplay = document.getElementById("start-time-output");
+  const endTimeDisplay = document.getElementById("end-time-output");
+
+  // 初期表示
+  updateDisplay(startSlider, startTimeDisplay);
+  updateDisplay(endSlider, endTimeDisplay);
+
+  // Range Sliderの値が変更されたときに呼び出される関数
+  function updateDisplay(slider, display) {
+    const value = parseFloat(slider.value)/1000;
+    const minutes = Math.floor(value / 60);
+    const seconds = Math.floor(value % 60);
+    display.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  // Range Sliderの値が変更されたときに表示を更新
+  startSlider.addEventListener("input", () => {
+    updateDisplay(startSlider, startTimeDisplay);
+  });
+
+  endSlider.addEventListener("input", () => {
+    updateDisplay(endSlider, endTimeDisplay);
+  });
+});
+
+</script>
+
+<script>
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+      const element = document.getElementById('embed-iframe');
+      const song_code = document.getElementById('song-code-input').value
+      const options = {
+          height: '200',
+          uri: `spotify:track:${song_code}`
+        };
+      const callback = (EmbedController) => {};
+      IFrameAPI.createController(element, options, callback);
+    };
+</script>
+<script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async></script>
 <img src="<%= @song.album.images.first["url"] %>", class="w-auto h-20">
 <h3 class="text-light"><%= @song.artists[0].name %></h3>
 <iframe class="iframe-song" src="<%= @song.preview_url %>">
+
+
+<%= javascript_include_tag 'ab-set' %>
+<%= javascript_include_tag 'play' %>
+<script src="https://sdk.scdn.co/spotify-player.js"></script>

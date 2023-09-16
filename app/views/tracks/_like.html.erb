@@ -1,0 +1,18 @@
+    <div id='like-container'>
+      <% if track.liked_by?(current_user) %>
+        
+        <div><%= button_to track_likes_path(track.id), method: :delete do%>
+          <i class="fa-solid fa-heart" style="color: #ff0a0a;"></i>
+          <%= track.like.count%>
+          <% end %>
+        </div>
+      <% else %>
+     
+        <div>
+            <%=  link_to track_likes_path(track.id), data: { "turbo-method": :post }  do%>
+              <i class="fa-regular fa-heart"></i>
+               <%= track.like.count%>
+            <% end %>
+        </div>
+      <% end %>
+    </div>

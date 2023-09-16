@@ -1,2 +1,36 @@
 <h1>Tracks#show</h1>
-<p>Find me in app/views/tracks/show.html.erb</p>
+<h1><%= @track.song.song_name%></h1>
+<div id="track-box-<%= @track.id %>" class="flex h-60 w-10/12 bg-sky-400 bg-black m-auto rounded-lg mt-9">
+    <input type="hidden" id="access-token-input" value="<%= @spotify_user.credentials['token']%>">
+    <input type="hidden" id="track-id-input" value="<%= @track.id %>">
+    <input type="hidden" id="song-code-input" value="<%= @track.song.song_code %>">
+    <input type="hidden" id="start-time-input" value="<%= @track.start_time %>">
+    <input type="hidden" id="end-time-input" value="<%= @track.end_time %>">
+    <input type="hidden" id="a-point-input" value="30000"> <!-- 30,000 milliseconds (or 30 seconds) -->
+</div>
+<button id="start-loop-button">Start Loop</button>
+
+
+<div class="comment-wrapper border-top mb-10">
+  <p class="text-center mt-2 font-bold">コメント一覧</p>
+  <% if @comments %>
+  <%= render partial:'comment', collection: @comments%>
+  <%end%>
+</div>
+  
+  <%# <% if user_signed_in? %>
+<div id='comment-textbox-wrapper' class='border-solid border-2 border-gray-500 flex flex-col items-center justify-center' style='height: 50vh;'>
+  <%= form_with(model: @comment, url: track_comments_path(@track), local: true) do |f| %>
+    <div class='w-11/12'>
+      <%= f.text_area :content, class: "border-solid border-2 border-gray-400", cols:"60", rows: 5 %>
+    </div>
+    <%= f.submit 'submit', class: "btn btn-success mt-1" %>
+  <% end %>
+</div>
+
+
+  <%# <% end %>
+</div>
+
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<%= javascript_include_tag 'spotify-play' %>
