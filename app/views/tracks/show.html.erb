@@ -4,6 +4,8 @@
     <input type="hidden" id="access-token-input" value="<%= @spotify_user.credentials['token']%>">
     <input type="hidden" id="track-id-input" value="<%= @track.id %>">
     <input type="hidden" id="song-code-input" value="<%= @track.song.song_code %>">
+    <input type="hidden" id="start-time-input" value="<%= @track.start_time %>">
+    <input type="hidden" id="end-time-input" value="<%= @track.end_time %>">
     <input type="hidden" id="a-point-input" value="30000"> <!-- 30,000 milliseconds (or 30 seconds) -->
 </div>
 <button id="start-loop-button">Start Loop</button>
@@ -15,9 +17,6 @@
   <%= render partial:'comment', collection: @comments%>
   <%end%>
 </div>
-     
- 
-      
   
   <%# <% if user_signed_in? %>
 <div id='comment-textbox-wrapper' class='border-solid border-2 border-gray-500 flex flex-col items-center justify-center' style='height: 50vh;'>
