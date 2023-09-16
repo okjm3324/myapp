@@ -3,8 +3,8 @@ document.addEventListener("turbo:load", () => {
   let device_id;
   let isTrackLoaded = false;
   let isPaused = false; 
-  const startTime = 30;
-  const endTime = 35; 
+  const startTime = document.getElementById('start-time-input').value; 
+  const endTime = document.getElementById('end-time-input').value;
 
   const access_token = document.getElementById('access-token-input').value; 
   const track_id = document.getElementById('song-code-input').value; 
@@ -42,11 +42,11 @@ document.addEventListener("turbo:load", () => {
   };
 
   function setLoopTimeout() {
-    let playDuration = (endTime * 1000) - pauseTime; // 経過時間を考慮した再生時間を計算
+    let playDuration = (endTime) - pauseTime; // 経過時間を考慮した再生時間を計算
     timer = setTimeout(() => {
       player.pause().then(() => {
         console.log('Paused at B position');
-        player.seek(startTime * 1000).then(() => {
+        player.seek(startTime).then(() => {
           console.log(`Reset to A position: ${startTime}s`);
         });
       });
@@ -57,7 +57,7 @@ document.addEventListener("turbo:load", () => {
   function loadTrack() {
     fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device_id}`, {
       method: 'PUT',
-      body: JSON.stringify({ uris: [`spotify:track:${track_id}`], position_ms: startTime * 1000 }),
+      body: JSON.stringify({ uris: [`spotify:track:${track_id}`], position_ms: startTime }),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${access_token}`
@@ -65,7 +65,7 @@ document.addEventListener("turbo:load", () => {
     }).then(() => {
       console.log('Track loaded');
       isTrackLoaded = true;
-      pauseTime = startTime * 1000; // pauseTimeを初期化
+      pauseTime = startTime; // pauseTimeを初期化
       setLoopTimeout();
     }).catch((error) => {
       console.error('Failed to load track', error);
