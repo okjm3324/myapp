@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("turbo:load", () => {
   let player;
   let device_id;
   let isTrackLoaded = false;

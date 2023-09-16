@@ -51,9 +51,8 @@ class TracksController < ApplicationController
         song.song_name = song_name
         song.bpm = bpm
       end
-  
+
       @track = @new_song.tracks.new(track_params.merge(user: current_user)) # カレントユーザーと紐付け
-  
       if @track.save
         redirect_to user_path(current_user)
       else
@@ -146,6 +145,6 @@ class TracksController < ApplicationController
   private
 
   def track_params
-    params.require(:track).permit(:start, :end, :section, :bpm, :instrument, :original_bpm, :duration )
+    params.require(:track).permit(:start_time, :end_time, :section, :bpm, :instrument, :original_bpm, :duration )
   end
 end
