@@ -3,7 +3,7 @@
   <!-- Hero section with heading, subheading and button -->
   <div id='user-image-container'
     class="bg-neutral-50 px-6 py-20 text-center text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200 ">
-    <div class="w-1/12 h-1/12 m-auto" ><%= @user.avatar.attached? ? (image_tag @user.avatar, class:"rounded-full") : (image_tag "blank-profile", class:"rounded-full") %></div>
+    <div class="w-1/12 h-1/12 m-auto" ><%= @user.avatar.attached? ? (image_tag @user.avatar, class:"rounded-full") : (image_tag "blank-profile.png", class:"rounded-full") %></div>
     <h3 class="mb-8 text-3xl font-bold mt-10"><%= @user.name%></h3>
     <div id='follow-btn-wrapper', class='w-auto h-auto'>
       <%= render 'follow_form' if logged_in? %>
