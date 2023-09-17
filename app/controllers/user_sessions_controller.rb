@@ -20,6 +20,7 @@ class UserSessionsController < ApplicationController
   end
 
   def spotify_callback
+    bind
     auth_hash = request.env['omniauth.auth']
     access_token = auth_hash['credentials']['token']
     refresh_token = auth_hash['credentials']['refresh_token']
@@ -30,7 +31,7 @@ class UserSessionsController < ApplicationController
     session[:access_token] = access_token
     session[:refresh_token] = refresh_token
     session[:token_deadline] = token_deadline
-
+    
     if User.find_by(email: spotify_user.email)
       #ユーザーがある場合ログイン画面へ
       redirect_to login_path

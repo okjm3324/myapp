@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   @spotify_user_info = session[:spotify_user_info]
   @email = @spotify_user_info['email']
   @name = @spotify_user_info['name']
-  @image_url = @spotify_user_info['images'][0]['url']
+  @image_url = @spotify_user_info['images'][0]['url'] if @spotify_user_info && @spotify_user_info['images'] && @spotify_user_info['images'][0]
 
 
   end

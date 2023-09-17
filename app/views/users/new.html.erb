@@ -1,8 +1,7 @@
 <%= form_with model: @user do |f| %>
   <%= render 'shared/error_messages' %>
   
-  
-  
+
   <%= f.label :email %>
   <%= f.text_field :email, value:@email %>
   <%= f.label :name %>
