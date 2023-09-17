@@ -1,6 +1,6 @@
 <div class='flex flex-row bg-green-200 w-2/5 rounded'>
 <%= link_to user_path(user) do%>
-<%= user.avatar.attached? ? (image_tag user.avatar, class:"rounded-full h-32 w-32 m-2") : (image_tag "blank-profile", class:"rounded-full") %>
+<%= user.avatar.attached? ? (image_tag user.avatar, class:"rounded-full h-32 w-32 m-2") : (image_tag "blank-profile.png", class:"rounded-full") %>
 <%end%>
   <div class='flex flex-col'>
     <%= link_to user_path(user) do%>
