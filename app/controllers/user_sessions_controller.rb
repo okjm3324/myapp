@@ -31,20 +31,49 @@ class UserSessionsController < ApplicationController
     session[:refresh_token] = refresh_token
     session[:token_deadline] = token_deadline
     
-    if User.find_by(email: spotify_user.email)
-      #ユーザーがある場合ログイン画面へ
-      redirect_to login_path
+    user = User.find_by(email: spotify_user.email)
+    if user
+      #ログイン処理をする
+      reset_session 
+      if auto_login(user)
+        redirect_to(user_path(user), notice: 'ようこそ')
+      else
+        flash[:alert] = 'ログインに失敗しました'
+        redirect_to login_path
+      end
     else
-      #ユーザー新規登録画面へ
+      #ユーザー新規登録をする
       session[:spotify_user_info] = {
         name: spotify_user.display_name,
         email: spotify_user.email,
         images: spotify_user.images,
         id: spotify_user.id
       }
-      redirect_to new_user_path
+      random_password = SecureRandom.hex(16)
+      user_params = {
+        email: spotify_user.email,
+        name: spotify_user.display_name,
+        instrument: 0, # この値はあなたが定義するものに依存します
+        user_code: spotify_user.id, # ユニークなユーザーコードを生成する方法として SecureRandom.hex を使用しています
+        password: random_password,
+        password_confirmation: random_password,
+        access_token: access_token,
+        refresh_access_token: refresh_token,
+        token_deadline: token_deadline,
+      }
+      ##ここでユーザーをクリエイトしてしまう
+      @user = User.new(user_params)
+      
+      if @user.save
+        reset_session 
+        auto_login(@user) 
+        flash[:notice] = 'ようこそ'
+        redirect_to user_path(@user)
+      else
+        flash[:alert] =  @user.errors.full_messages.join(", ")
+        redirect_to login_path
+      end
     end
-   
   end
 
   def refresh_spotify_access_token
@@ -57,5 +86,4 @@ class UserSessionsController < ApplicationController
     
     redirect_to root_path
   end
-
 end
