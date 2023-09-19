@@ -86,3 +86,4 @@ gem "font-awesome-sass", "~> 6.4.2"
 gem 'bullet'
 gem 'trestle-auth'
 gem 'trestle'
+gem 'omniauth-spotify'

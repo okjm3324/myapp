@@ -28,12 +28,20 @@ class User < ApplicationRecord
   enum instrument: { guitar: 0, bass: 1, drums: 2, keyboard: 3, sax: 4 }
 
   def self.find_or_create_from_omniauth!(auth_hash)
-    user = User.find_or_initialize_by!(provider: auth_hash[:provider], uid: auth_hash[:uid])
+    user = User.find_or_initialize_by(user_code: auth_hash[:uid])
+    random_password = SecureRandom.hex(16)
+
     user.update!(
-      name: auth_hash[:info][:name],
+      email: auth_hash[:info][:email],
+      name: auth_hash[:info][:display_name],
       avatar: auth_hash[:info][:image],
+      user_code: auth_hash[:uid],
+      password: random_password,
+      password_confirmation: random_password,
       access_token: auth_hash[:credentials][:token],
-      refresh_token: auth_hash[:credentials][:refresh_token]
+      refresh_access_token: auth_hash[:credentials][:refresh_token],
+      token_deadline: auth_hash[:credentials][:expires_at],
+      instrument: 0
     )
     user
   end
@@ -80,5 +88,6 @@ class User < ApplicationRecord
     # RSpotifyがトークンの有効性を確認し、必要に応じてリフレッシュを行います。
     user.playlists # この操作により、トークンが有効か確認され、リフレッシュが行われる可能性があります。
   end
+  
   
 end
