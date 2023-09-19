@@ -1,0 +1,10 @@
+ja:
+  users:
+    index:
+      title: "ユーザー一覧"
+      welcome_message: "ようこそ、ユーザー一覧ページへ！"
+    show:
+      title: "ユーザー詳細"
+  tracks:
+    new:
+      title: "新規トラックの作成"
