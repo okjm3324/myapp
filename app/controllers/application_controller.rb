@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     redirect_to login_path, alert: "ログインしてください"
   end
 
+  def check_login
+    redirect_to user_path(current_user) if current_user
+  end
+
   def check_and_refresh_token
     # current_userがnilでない、かつトークンの期限が存在することを確認
     return if current_user.nil? || current_user.token_deadline.nil?
