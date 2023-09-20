@@ -8,7 +8,9 @@ ja:
         name: 名前
         email: メールアドレス
         password: パスワード
+        password_confirmation: パスワード確認
         instrumental: 楽器
+        avatar: プロフィール画像
       track:
         title: タイトル
         start_time: 開始時間
@@ -18,6 +20,9 @@ ja:
         duration: 曲の長さ
         section: トラックセクション
         instrument: 楽器
+      user_session:
+        email: メールアドレス
+        password: パスワード
     enums:
       user:
         instrument:
