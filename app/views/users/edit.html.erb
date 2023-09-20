@@ -1,4 +1,4 @@
-<h1>edit</h1>
+<h1><%= t(".title") %></h1>
 <%= form_with model: @user do |f| %>
   <%= render 'shared/error_messages' %>
   
@@ -12,7 +12,7 @@
   <%= f.password_field :password %>
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %>
-  <%= f.select :instrument, User.instruments.keys %>
+  <%= f.select :instrument, User.instruments.keys.map { |key| [I18n.t("activerecord.enums..user.instrument.#{key}"), key] } %>
   
   <div class="field">
     <%= f.label :avatar %>
@@ -20,7 +20,7 @@
   </div>
   <div id="avatar-preview-container"></div>
   
-  <%= f.submit 'edit' %>
+  <%= f.submit t(".update") %>
 <% end %>
 
 <style>

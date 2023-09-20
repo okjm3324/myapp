@@ -4,22 +4,19 @@
   <div class="card-body">
     <div class="form-control">
       <label class='label'>
-      <%= f.label :email, class:"label-text"%>
+        <span class="label-text"><%= User.human_attribute_name(:email) %></span>
       </label>
       <%= f.text_field :email, placeholder:"email", class:"input input-bordered" %>
     </div>
     <div class="form-control">
       <label class='label'>
-        <%= f.label :password, class:"label-text" %>
+        <span class="label-text"><%= User.human_attribute_name(:password)%></span>
       </label>
       <%= f.password_field :password,  placeholder:"password", class:"input input-bordered"  %>
     </div>
-    <label class="label">
-        <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
-    </label>
     <div class="form-control mt-6">
       <button class="btn btn-primary">
-      <%= f.submit "Login"%>
+      <%= f.submit t('.submit') %>
       </button>
     </div>
     <div class="form-control mt-6">

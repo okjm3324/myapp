@@ -12,6 +12,8 @@ module Myapp
     config.load_defaults 7.0
     RSpotify::authenticate( ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_SECRET_ID'])
     # Configuration for the application, engines, and railties goes here.
+    config.i18n.default_locale = :ja
+    config.i18n.available_locales = [:en, :ja]
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.

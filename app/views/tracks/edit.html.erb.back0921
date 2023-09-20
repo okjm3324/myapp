@@ -1,0 +1,40 @@
+<h1>トラック</h1>
+
+<%= form_with model: @track  do |f|%>
+<%= f.hidden_field :song_code, :value => @track.song.id %> 
+<%= f.hidden_field :album_code, :value => @track.song.album.id %> 
+<div class="flex flex-col">
+  <%= f.label :title %>
+  <%= f.text_field :title, class:'border-2 w-96', value:@track.song.song_name, readonly: true %>
+
+  <%= f.label :original_bpm  %>
+  <%= f.text_field :original_bpm, class:'border-2 w-96', value:@track.song.bpm, readonly: true %>
+
+  <%= f.label :duration  %>
+  <%= f.text_field :duration, class:'border-2 w-96', value:convert_milliseconds_to_minutes_and_seconds(@track.duration) %>
+
+
+
+  <%= f.label :start  %>
+  <%= f.text_field :start, class:'border-2 w-96', value:@track.start_time %>
+
+
+
+<%= f.label :end %>
+<%= f.text_field :end, class:'border-2 w-96', value:@track.end_time %>
+
+<%= f.label :section %>
+<%= f.select :section, [["intro", :intro], ["verse", :verse], ["bridge", :bridge], ["chorus", :chorus], ["solo", :solo], ["ending", :ending]], { include_blank: "選択してください" }, { class: "border-2 w-96", selected: @track.section.to_sym } %>
+
+
+<%= f.label :bpm %>
+<%= f.text_field :bpm, class:'border-2 w-96', value:@track.bpm %>
+
+<%= f.label :instrument %>
+<%= f.select :instrument, [["guitar", :guitar], ["bass", :bass], ["drums", :drums], ["keyboard", :keyboard], ["sax", :sax]], { include_blank: "選択してください" }, { class: "border-2 w-96", selected: @track.instrument.to_sym } %>
+
+<%= f.submit 'submit'%>
+
+</div>
+
+<% end %>

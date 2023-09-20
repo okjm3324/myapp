@@ -1,0 +1,55 @@
+ja:
+  users:
+    index:
+      title: "ユーザー一覧"
+      welcome_message: "ようこそ、ユーザー一覧ページへ！"
+    show:
+      title: "ユーザー詳細"
+      track: "トラック"
+      like: "いいね"
+    edit:
+      title: "ユーザー情報編集"
+      email: "メールアドレス"
+      name: "名前"
+      password: "パスワード"
+      password_confirmation: "パスワード確認"
+      instrument: "楽器"
+      avatar: "プロフィール画像"
+      update: "更新"
+    likes:
+      title: "いいね一覧"
+      message: "まだいいねしていません"
+  tracks:
+    new:
+      title: "新規トラックの作成"
+      back: "戻る"
+    show:
+      title: 編集
+      comment: コメント一覧
+      play: 再生
+      submit: 投稿
+    search_artist:
+      title: "アーティスト検索"
+      result: "検索結果"
+      search: "検索"
+    search_album:
+      title: "アルバム検索結果"
+      result: 
+    search_track:
+      title: "トラック選択"
+    index:
+      title: "タイムライン"
+  user_sessions:
+    new:
+      submit: ログイン
+  shared:
+    stats:
+      followed: "フォロワー"
+      following: "フォロー中"
+    navbar:
+      mypage: "マイページ"
+      timeline: "タイムライン"
+      setting: "設定"
+      logout: "ログアウト"
+      appname: "トラウマフレーズ"
+
