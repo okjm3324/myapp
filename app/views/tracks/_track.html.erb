@@ -1,4 +1,4 @@
- <div id='track-card' class="card w-96 bg-base-100 shadow-xl">
+<div id='track-card' class="card w-96 bg-base-100 shadow-xl">
       <input type="hidden" id="access-token-input" value="<%= current_user.access_token %>">
       <input type="hidden" id="track-id-input" value="<%= track.id %>">
       <input type="hidden" id="song-code-input" value="<%= track.song.song_code %>">
@@ -8,9 +8,9 @@
               <%= track.user.avatar.attached? ? (image_tag track.user.avatar, class:"rounded-full") : (image_tag "blank-profile.png", class:"rounded-full") %>
           </div>
       </label>
-       <div class='text-cente ml-2 text-center pt-3'>
+      <div class='text-cente ml-2 text-center pt-3'>
         <%= track.user.name %>
-       </div>
+      </div>
     </div>
   <%= link_to track_path(track.id) do %>
     <figure class="px-10 pt-2 relative group">
@@ -49,7 +49,7 @@
 
       <div class='flex flex-row'>
         <div id='like-wrapper'class='ml-10'>
-           <%= render 'tracks/like', track: track %>
+          <%= render 'tracks/like', track: track %>
         </div>
         <% if current_user.own?(track)%>
         <div id='editer-wrapper' class='flex flex-row ml-auto mr-10 mb-3'>
@@ -65,7 +65,5 @@
           </div>
         </div>
         <% end %>
-
       </div>
 </div>
-   

@@ -2,15 +2,38 @@ document.addEventListener("turbo:load", () => {
   let player;
   let device_id;
   let isTrackLoaded = false;
-  let isPaused = false; 
-  const startTime = document.getElementById('start-time-input').value; 
-  const endTime = document.getElementById('end-time-input').value;
+  let isPaused = false;
 
-  const access_token = document.getElementById('access-token-input').value; 
-  const track_id = document.getElementById('song-code-input').value; 
+  const startTimeElement = document.getElementById('start-time-input');
+  if (!startTimeElement) {
+      console.error("start-time-input element not found");
+      return;
+  }
+  const startTime = startTimeElement.value;
+
+  const endTimeElement = document.getElementById('end-time-input');
+  if (!endTimeElement) {
+      console.error("end-time-input element not found");
+      return;
+  }
+  const endTime = endTimeElement.value;
+
+  const accessTokenElement = document.getElementById('access-token-input');
+  if (!accessTokenElement) {
+      console.error("access-token-input element not found");
+      return;
+  }
+  const access_token = accessTokenElement.value;
+
+  const trackIdElement = document.getElementById('song-code-input');
+  if (!trackIdElement) {
+      console.error("song-code-input element not found");
+      return;
+  }
+  const track_id = trackIdElement.value;
 
   let timer;
-  let pauseTime; // 追加
+  let pauseTime;
 
   window.onSpotifyWebPlaybackSDKReady = () => {
     player = new Spotify.Player({
@@ -29,7 +52,7 @@ document.addEventListener("turbo:load", () => {
       if (state) {
         isPaused = state.paused;
         if (isPaused) {
-          pauseTime = state.position; // 一時停止時の位置を記録
+          pauseTime = state.position;
         }
       }
     });
@@ -42,7 +65,7 @@ document.addEventListener("turbo:load", () => {
   };
 
   function setLoopTimeout() {
-    let playDuration = (endTime) - pauseTime; // 経過時間を考慮した再生時間を計算
+    let playDuration = (endTime) - pauseTime;
     timer = setTimeout(() => {
       player.pause().then(() => {
         console.log('Paused at B position');
@@ -51,7 +74,7 @@ document.addEventListener("turbo:load", () => {
         });
       });
     }, playDuration);
-    pauseTime = 0; // タイマーをリセット
+    pauseTime = 0;
   }
 
   function loadTrack() {
@@ -65,24 +88,29 @@ document.addEventListener("turbo:load", () => {
     }).then(() => {
       console.log('Track loaded');
       isTrackLoaded = true;
-      pauseTime = startTime; // pauseTimeを初期化
+      pauseTime = startTime;
       setLoopTimeout();
     }).catch((error) => {
       console.error('Failed to load track', error);
     });
   }
 
-  document.getElementById('start-loop-button').addEventListener('click', () => {
-    if (!isTrackLoaded) {
-      loadTrack();
-    } else {
-      player.togglePlay().then(() => {
-        console.log('Toggled play/pause');
-        clearTimeout(timer);
-        if (isPaused) {
-          setLoopTimeout();
-        }
-      });
-    }
-  });
+  const startLoopButton = document.getElementById('start-loop-button');
+  if (startLoopButton) {
+    startLoopButton.addEventListener('click', () => {
+      if (!isTrackLoaded) {
+        loadTrack();
+      } else {
+        player.togglePlay().then(() => {
+          console.log('Toggled play/pause');
+          clearTimeout(timer);
+          if (isPaused) {
+            setLoopTimeout();
+          }
+        });
+      }
+    });
+  } else {
+    console.error("start-loop-button element not found");
+  }
 });

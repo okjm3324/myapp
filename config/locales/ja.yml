@@ -1,0 +1,53 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      track: トラック
+    attributes:
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード確認
+        instrumental: 楽器
+        avatar: プロフィール画像
+      track:
+        title: タイトル
+        start_time: 開始時間
+        end_time: 終了時間
+        original_bpm: 曲のBPM
+        bpm: 練習中のBPM
+        duration: 曲の長さ
+        section: トラックセクション
+        instrument: 楽器
+      user_session:
+        email: メールアドレス
+        password: パスワード
+    enums:
+      user:
+        instrument:
+          guitar: ギター
+          bass: ベース
+          drums: ドラム
+          keyboard: キーボード
+          sax: サックス
+      track:
+        instrument:
+          guitar: ギター
+          bass: ベース
+          drums: ドラム
+          keyboard: キーボード
+          sax: サックス
+        section:
+          intro: イントロ
+          verse: バース
+          bridge: ブリッジ
+          chorus: コーラス
+          solo: ソロ
+          ending: エンディング
+  prompt:
+    select: 選択してください
+  submit:
+    label: 送信
+    create: 作成
+    update: 更新

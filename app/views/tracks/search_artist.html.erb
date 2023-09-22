@@ -1,12 +1,12 @@
-<h1>アーティスト検索</h1>
+<h1><%= t(".title") %></h1>
 
 <%= form_with url: search_artist_tracks_path, method: :get, local: true do |form| %>
 <%= form.text_field :search %>
-<%= form.submit 'アーティスト名検索', name: nil %>
+<%= form.submit t(".search"), name: nil %>
 <% end %>
 
 
-<h1>検索結果</h1>
+<h1><%=t(".result")%></h1>
 <div>
   <% if @searchartists.present? %>
     <% @searchartists.each do |searchartist| %>

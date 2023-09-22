@@ -86,4 +86,8 @@ gem "font-awesome-sass", "~> 6.4.2"
 gem 'bullet'
 gem 'trestle-auth'
 gem 'trestle'
+<<<<<<< HEAD
 gem 'rack-cors'
+=======
+gem 'omniauth-spotify'
+>>>>>>> develop
