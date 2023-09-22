@@ -34,3 +34,7 @@
 
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
 <%= javascript_include_tag 'spotify-play' %>
+
+<% content_for :head do %>
+  <meta name="turbo-visit-control" content="reload">
+<% end %>
