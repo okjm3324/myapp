@@ -87,4 +87,5 @@ gem 'bullet'
 gem 'trestle-auth'
 gem 'trestle'
 gem 'omniauth-spotify'
+gem 'rack-cors'
 
