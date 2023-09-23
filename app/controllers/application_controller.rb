@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     return if current_user.nil? || current_user.token_deadline.nil?
 
     # 期限が現在の時間よりも前である場合、トークンをリフレッシュ
-    if Time.current > Time.at(current_user.token_deadline)
+    if Time.current > Time.zone.at(current_user.token_deadline)
       current_user.refresh_spotify_token!
     end
   end
