@@ -28,12 +28,9 @@ class UserSessionsController < ApplicationController
 
   def refresh_spotify_access_token
     # SpotifyのAPIを呼び出してリフレッシュトークンを使用して新しいアクセストークンを取得する処理
-    # ここでは具体的な実装を省略しています
     new_access_token = refresh_access_token(session[:refresh_token])
-
     # 新しいアクセストークンをセッションに保存
     session[:access_token] = new_access_token
-    
     redirect_to root_path
   end
 end
