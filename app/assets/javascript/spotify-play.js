@@ -6,28 +6,28 @@ document.addEventListener("turbo:load", () => {
 
   const startTimeElement = document.getElementById('start-time-input');
   if (!startTimeElement) {
-      console.error("start-time-input element not found");
+      // console.error("start-time-input element not found");
       return;
   }
   const startTime = startTimeElement.value;
 
   const endTimeElement = document.getElementById('end-time-input');
   if (!endTimeElement) {
-      console.error("end-time-input element not found");
+      // console.error("end-time-input element not found");
       return;
   }
   const endTime = endTimeElement.value;
 
   const accessTokenElement = document.getElementById('access-token-input');
   if (!accessTokenElement) {
-      console.error("access-token-input element not found");
+      // console.error("access-token-input element not found");
       return;
   }
   const access_token = accessTokenElement.value;
 
   const trackIdElement = document.getElementById('song-code-input');
   if (!trackIdElement) {
-      console.error("song-code-input element not found");
+      // console.error("song-code-input element not found");
       return;
   }
   const track_id = trackIdElement.value;
