@@ -148,11 +148,4 @@
     };
 </script>
 <script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async></script>
-<img src="<%= @song.album.images.first["url"] %>", class="w-auto h-20">
-<h3 class="text-light"><%= @song.artists[0].name %></h3>
-<iframe class="iframe-song" src="<%= @song.preview_url %>">
-
-
-<%= javascript_include_tag 'ab-set' %>
-<%= javascript_include_tag 'play' %>
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
