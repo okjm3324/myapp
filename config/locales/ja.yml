@@ -27,6 +27,8 @@ ja:
         password_confirmation: パスワード確認
         instrumental: 楽器
         avatar: プロフィール画像
+        following: フォロー中
+        followed: フォロワー
       track:
         title: タイトル
         start_time: 開始時間

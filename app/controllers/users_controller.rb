@@ -53,13 +53,13 @@ class UsersController < ApplicationController
   end
 
   def following
-    @title = "Following"
+    @title = User.human_attribute_name(:following)
     @users = @user.following.page(params[:page]).per(10)
     render 'show_follow'
   end
 
   def followers
-    @title = "Followers"
+    @title = User.human_attribute_name(:followed)
     @users = @user.followers.page(params[:page]).per(10)
     render 'show_follow'
   end
