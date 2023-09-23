@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   private
 
   def not_authenticated
-    redirect_to login_path, alert: "ログインしてください"
+    redirect_to login_path, alert: t("messages.login_caution")
   end
 
   def check_login

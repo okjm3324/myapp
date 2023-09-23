@@ -6,11 +6,7 @@ class LikesController < ApplicationController
   def create
     track = Track.find(params[:track_id])
     like = current_user.likes.new(track_id: track.id)
-    if like.save
-      redirect_to request.referer
-    else
-      redirect_to request.referer
-    end
+    redirect_to request.referer if like.save
   end
 
   def destroy

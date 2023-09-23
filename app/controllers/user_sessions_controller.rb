@@ -8,16 +8,16 @@ class UserSessionsController < ApplicationController
     reset_session 
     @user = login(params[:email], params[:password])
     if @user
-      redirect_to(user_path(@user), notice: 'ログインに成功しました')
+      redirect_to(user_path(@user), notice: t('messages.login_success'))
     else
-      flash[:alert] = 'ログインに失敗しました'
+      flash[:alert] = t('messages.login_failure')
       render :new
     end
   end
 
   def destroy
     logout
-    redirect_to(root_path,status: :see_other, notice: 'ログアウトしました')
+    redirect_to(root_path,status: :see_other, notice: t('messages.logout_success'))
   end
 
   def spotify_callback

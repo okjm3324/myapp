@@ -8,63 +8,66 @@ class TracksController < ApplicationController
     @tracks = Track.all
   end
 
-  def new
-    @song = RSpotify::Track.find(params[:track_id])
-    @album = RSpotify::Album.find(params[:album_id])
-    @track = Track.new
-  end
-
   def show
     @track = Track.find_by(id: params[:id])
     @comments = @track.comments
     @comment = Comment.new
     @spotify_user = current_user.spotify_user
+  end
+
+  def new
+    @song = RSpotify::Track.find(params[:track_id])
+    @album = RSpotify::Album.find(params[:album_id])
+    @track = Track.new
+  end
   
+  def edit
+    @track = Track.find_by(id: params[:id])
   end
 
   def create
     album_code = params[:track][:album_code]
     song_code = params[:track][:song_code]
-  
-    ActiveRecord::Base.transaction do
-      @album = RSpotify::Album.find(album_code)
-      @song = RSpotify::Track.find(song_code)
-  
-      return render :new unless @album && @song
-  
-      title = @album.name
-      artist = @album.artists.first.name
-      album_image = @album.images[1]['url']
-  
-      # アルバムがすでに存在するかチェック
-      @new_album = Album.find_or_create_by(album_code: album_code) do |album|
-        album.title = title
-        album.artist_name = artist
-        album.album_image = album_image
-      end
-  
-      song_name = @song.name
-      bpm = @song.audio_features.tempo
-  
-      # 曲がすでに存在するかチェック
-      @new_song = @new_album.songs.find_or_create_by(song_code: song_code) do |song|
-        song.song_name = song_name
-        song.bpm = bpm
-      end
+    begin
+      ActiveRecord::Base.transaction do
+        @album = RSpotify::Album.find(album_code)
+        @song = RSpotify::Track.find(song_code)
+    
+        unless @album && @song
+          raise ActiveRecord::Rollback
+        end
+    
+        title = @album.name
+        artist = @album.artists.first.name
+        album_image = @album.images[1]['url']
+    
+        # アルバムがすでに存在するかチェック
+        @new_album = Album.find_or_create_by(album_code: album_code) do |album|
+          album.title = title
+          album.artist_name = artist
+          album.album_image = album_image
+        end
+    
+        song_name = @song.name
+        bpm = @song.audio_features.tempo
+    
+        # 曲がすでに存在するかチェック
+        @new_song = @new_album.songs.find_or_create_by(song_code: song_code) do |song|
+          song.song_name = song_name
+          song.bpm = bpm
+        end
 
-      @track = @new_song.tracks.new(track_params.merge(user: current_user)) # カレントユーザーと紐付け
-      if @track.save
-        redirect_to user_path(current_user)
-      else
-        render :new
+        @track = @new_song.tracks.new(track_params.merge(user: current_user)) # カレントユーザーと紐付け
+        if @track.save
+          redirect_to user_path(current_user)
+        else
+          render :new
+        end
       end
+    rescue ActiveRecord::Rollback
+      render :new
     end
-  end
-
-  def edit
-    @track = Track.find_by(id: params[:id])
-  end
-  
+  end  
 
   def update
     @track = Track.find_by(id: params[:id])
@@ -80,10 +83,10 @@ class TracksController < ApplicationController
     @track = Track.find_by(id: params[:id])
     @user = @track.user
     if @track.destroy
-      flash[:notice] = 'トラックを削除しました。'
+      flash[:notice] = t('messages.delete_success', model: Track.model_name.human)
       redirect_to user_path(@user)
     else
-      flash[:alert] = 'トラックの削除に失敗しました。'
+      flash[:alert] = t('messages.delete_failure', model: Track.model_name.human)
       render 'users/show'
     end
   end

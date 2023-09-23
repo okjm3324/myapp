@@ -4,16 +4,6 @@ class UsersController < ApplicationController
 
   end
 
-  def new
-  @user = User.new
-  @spotify_user_info = session[:spotify_user_info]
-  @email = @spotify_user_info['email']
-  @name = @spotify_user_info['name']
-  @image_url = @spotify_user_info['images'][0]['url']
-
-
-  end
-
   def show
     @user = User.includes(tracks: {song: :album}).find_by(id: params[:id])
     if @user.tracks
@@ -21,28 +11,36 @@ class UsersController < ApplicationController
     end
   end
 
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      redirect_to login_path
-      flash[:notice] = 'ユーザーの作成に成功しました'
-    else
-      flash.now[:alert] = 'ユーザーの作成に失敗しました'
-      render :new
-    end
+  def new
+    @user = User.new
+    @spotify_user_info = session[:spotify_user_info]
+    @email = @spotify_user_info['email']
+    @name = @spotify_user_info['name']
+    @image_url = @spotify_user_info['images'][0]['url']
   end
 
   def edit
     @user = User.find(params[:id])
   end
 
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to login_path
+      flash[:notice] = t('messages.success', model: User.model_name.human)
+    else
+      flash.now[:alert] = t('messages.failure', model: User.model_name.human)
+      render :new
+    end
+  end
+
   def update
     @user = User.find(params[:id])
     if @user.update(user_edit_params)
       @user.avatar.attach(params[:user][:avatar]) if params[:user][:avatar]
-      redirect_to @user, notice: "ユーザー情報を更新しました。"
+      redirect_to @user, notice: t('messages.update_success', model: User.model_name.human)
     else
-      flash.now[:alert] = 'ユーザー情報を更新に失敗しました。'
+      flash.now[:alert] = t('messages.update_failure', model: User.model_name.human)
       render :edit, status: :unprocessable_entity
     end
   end
