@@ -1,4 +1,16 @@
 ja:
+  messages:
+    login_success: ログインに成功しました
+    login_failure: ログインに失敗しました
+    login_caution: ログインしてください
+    logout_success: ログアウトに成功しました
+    logout_failure: ログアウトに失敗しました
+    create_success: "%{model}を作成しました"
+    create_failure: "%{model}を作成できませんでした"
+    delete_success: "%{model}を削除しました"
+    delete_failure: "%{model}を削除できませんでした"
+    update_success: "%{model}を更新しました"
+    update_failure: "%{model}を更新できませんでした"
   time:
     formats:
       long: "%Y年%m月%d日 %H時%M分%S秒"
@@ -6,6 +18,7 @@ ja:
     models:
       user: ユーザー
       track: トラック
+      comment: コメント
     attributes:
       user:
         name: 名前
@@ -14,6 +27,8 @@ ja:
         password_confirmation: パスワード確認
         instrumental: 楽器
         avatar: プロフィール画像
+        following: フォロー中
+        followed: フォロワー
       track:
         title: タイトル
         start_time: 開始時間

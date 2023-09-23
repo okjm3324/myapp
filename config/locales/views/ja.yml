@@ -16,9 +16,13 @@ ja:
       instrument: "楽器"
       avatar: "プロフィール画像"
       update: "更新"
+      back: 戻る
     likes:
       title: "いいね一覧"
       message: "まだいいねしていません"
+      back: 戻る
+    show_follow:
+      back: 戻る
   tracks:
     new:
       title: "新規トラックの作成"
@@ -28,6 +32,10 @@ ja:
       comment: コメント一覧
       play: 再生
       submit: 投稿
+      back: 戻る
+    edit:
+      title: トラック編集
+      back: 戻る
     search_artist:
       title: "アーティスト検索"
       result: "検索結果"
@@ -39,6 +47,7 @@ ja:
       title: "トラック選択"
     index:
       title: "タイムライン"
+      back: 戻る
   user_sessions:
     new:
       submit: ログイン

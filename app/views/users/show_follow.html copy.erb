@@ -12,7 +12,7 @@
         <div class="user_avatars">
           <% @users.each do |user| %>
             <%= link_to user do %>
-             <%= user.avatar.attached? ? (image_tag user.avatar, class:"rounded-full") : (image_tag "blank-profile.png", class:"rounded-full") %>
+              <%= user.avatar.attached? ? (image_tag user.avatar, class:"rounded-full") : (image_tag "blank-profile.png", class:"rounded-full") %>
             <% end %>
           <% end %>
         </div>

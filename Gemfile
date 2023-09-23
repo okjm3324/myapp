@@ -88,4 +88,6 @@ gem 'trestle-auth'
 gem 'trestle'
 gem 'omniauth-spotify'
 gem 'rack-cors'
-
+gem 'rubocop'
+gem 'rubocop-rails', require: false
+gem 'rubocop-performance', require: false
