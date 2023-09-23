@@ -87,3 +87,7 @@ gem 'bullet'
 gem 'trestle-auth'
 gem 'trestle'
 gem 'omniauth-spotify'
+
+gem 'rubocop'
+gem 'rubocop-rails', require: false
+gem 'rubocop-performance', require: false

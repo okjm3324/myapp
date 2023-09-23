@@ -4,8 +4,6 @@ class Track < ApplicationRecord
   has_many :comments,  dependent: :destroy
   has_many :like, dependent: :destroy
   validate :start_must_be_less_than_end
-  validates :user_id, presence: true
-  validates :song_id, presence: true
   validates :original_bpm, presence: true
   validates :duration, presence: true
   validates :start_time, presence: true
@@ -17,10 +15,8 @@ class Track < ApplicationRecord
   enum section: { intro: 0, verse: 1, bridge: 2, chorus: 3, solo: 4, ending:5}
   enum instrument: { guitar: 0, bass: 1, drums: 2, keyboard: 3, sax: 4 }
 
- 
-
   def liked_by?(user)
-    like.where(user_id: user.id).exists?
+    like.exists?(user_id: user.id)
   end
 
   private
