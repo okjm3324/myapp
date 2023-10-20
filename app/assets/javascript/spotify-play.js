@@ -49,13 +49,23 @@ document.addEventListener("turbo:load", () => {
 
     player.addListener('player_state_changed', state => {
       console.log('Player state changed', state);
-      if (state) {
-        isPaused = state.paused;
-        if (isPaused) {
-          pauseTime = state.position;
-        }
+      
+      const startLoopButtonIcon = document.querySelector('#start-loop-button i');
+  
+      if (state && state.paused) {
+          startLoopButtonIcon.className = 'fas fa-play';
+      } else {
+          startLoopButtonIcon.className = 'fas fa-pause';
       }
-    });
+  
+      if (state) {
+          isPaused = state.paused;
+          if (isPaused) {
+              pauseTime = state.position;
+          }
+      }
+  });;
+    
 
     player.addListener('initialization_error', ({ message }) => {
       console.error('Initialization error', message);

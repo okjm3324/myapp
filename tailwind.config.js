@@ -3,7 +3,7 @@ module.exports = {
 
   plugins: [require("daisyui")],
   daisyui: { 
-    themes: ["dark"],
+    themes: ["forest"],
   },
   content: [
     './app/views/**/*.html.erb',
