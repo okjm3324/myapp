@@ -1,6 +1,10 @@
 <div class="navbar bg-base-100">
   <div class="flex-1">
-    <%= link_to t(".appname"), user_path(current_user), class:"btn btn-ghost normal-case text-xl" %>
+    <% if logged_in? %>
+      <%= link_to t(".appname"), user_path(current_user), class:"btn btn-ghost normal-case text-xl" %>
+    <% else %>
+      <%= link_to t(".appname"), root_path, class:"btn btn-ghost normal-case text-xl" %>
+    <% end %>
   </div>
   <% if logged_in? %>
   <div class="flex-none gap-2">
