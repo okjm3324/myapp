@@ -1,42 +1,36 @@
-<h1><%= t(".title")%></h1>
-<h1><%= @track.song.song_name%></h1>
-<div id="track-box-<%= @track.id %>" class="flex h-60 w-10/12 bg-sky-400 bg-black m-auto rounded-lg mt-9">
+<div id="edit-container">
+  <div class="flex flex-col items-center bg-green-400 p-10">
+    <%= render @track %>
+    <button id="start-loop-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5"><i class="fa-solid fa-play"></i></button>
+  </div>
     <input type="hidden" id="access-token-input" value="<%= current_user.access_token%>">
     <input type="hidden" id="track-id-input" value="<%= @track.id %>">
     <input type="hidden" id="song-code-input" value="<%= @track.song.song_code %>">
     <input type="hidden" id="start-time-input" value="<%= @track.start_time %>">
     <input type="hidden" id="end-time-input" value="<%= @track.end_time %>">
+  </div>
+  <div class="comment-wrapper border-top mb-10">
+    <p class="text-center mt-2 font-bold"><%= t(".comment")%></p>
+    <% if @comments %>
+      <%= render partial:'comment', collection: @comments%>
+    <% end %>
+  </div>
+  <div id='comment-textbox-wrapper' class='border-solid border-2 border-gray-500 flex flex-col items-center justify-center' style='height: 50vh;'>
+    <%= form_with(model: @comment, url: track_comments_path(@track), local: true) do |f| %>
+      <div class='w-11/12'>
+        <%= f.text_area :content, class: "border-solid border-2 border-gray-400", cols:"60", rows: 5 %>
+      </div>
+      <%= f.submit t(".submit"), class: "btn btn-success mt-1" %>
+    <% end %>
+  </div>
+  <div class="flex items-center justify-center h-20">
+    <%= link_to t(".back"), :back, class: "text-lg text-blue-500 hover:text-blue-700 hover:underline hover:bg-blue-100 p-2 rounded transition duration-300 ease-in-out" %>
+  </div>
 
-</div>
-<button id="start-loop-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><%=t(".play")%></button>
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <%= javascript_include_tag 'spotify-play' %>
 
-
-<div class="comment-wrapper border-top mb-10">
-  <p class="text-center mt-2 font-bold"><%= t(".comment")%></p>
-  <% if @comments %>
-  <%= render partial:'comment', collection: @comments%>
-  <%end%>
-</div>
-  
-  <%# <% if user_signed_in? %>
-<div id='comment-textbox-wrapper' class='border-solid border-2 border-gray-500 flex flex-col items-center justify-center' style='height: 50vh;'>
-  <%= form_with(model: @comment, url: track_comments_path(@track), local: true) do |f| %>
-    <div class='w-11/12'>
-      <%= f.text_area :content, class: "border-solid border-2 border-gray-400", cols:"60", rows: 5 %>
-    </div>
-    <%= f.submit t(".submit"), class: "btn btn-success mt-1" %>
+  <% content_for :head do %>
+    <meta name="turbo-visit-control" content="reload">
   <% end %>
 </div>
-
-
-  <%# <% end %>
-<div class="flex items-center justify-center h-20">
-  <%= link_to t(".back"), :back, class: "text-lg text-blue-500 hover:text-blue-700 hover:underline hover:bg-blue-100 p-2 rounded transition duration-300 ease-in-out" %>
-</div>
-
-<script src="https://sdk.scdn.co/spotify-player.js"></script>
-<%= javascript_include_tag 'spotify-play' %>
-
-<% content_for :head do %>
-  <meta name="turbo-visit-control" content="reload">
-<% end %>
